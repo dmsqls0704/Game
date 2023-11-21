@@ -48,14 +48,23 @@ public class MainPageLabels extends JLabel {
  */
 class LabelStartEvent extends MainPageLabels {
     /**난이도를 선택하지 않고 해당 이벤트가 추가된 Label을 클릭할 시 나타날 문구를 저장한 변수*/
-    static UnselectedMessage message;
+    public static UnselectedMessage message;
 
+    private CardLayout cardLayout;
+   	private JPanel cardPanel;
+   	private MainPage mainPage;
+//   	private LoginScreen loginScreen;
+   	
     /**
      * LabelStartEvent 클래스의 생성자
      * @param text Label에 쓰일 텍스트를 매개변수로 받음
      */
-    public LabelStartEvent(String text) {
+    public LabelStartEvent(String text, CardLayout layout, JPanel panel, MainPage mainPage) {
         super(text);
+        cardLayout = layout;
+        cardPanel = panel;
+        this.mainPage = mainPage;
+    	
         addEventListenersUnselectedMessage();
     }
 
@@ -85,6 +94,24 @@ class LabelStartEvent extends MainPageLabels {
                     leftPanel.add(message, gbc);
                     leftPanel.revalidate();
                     leftPanel.repaint();
+                }
+                else if(MainPage.level1.isSelected() && message == null) {
+                	String[] userData = mainPage.loginScreen.getUser();
+    		        CardMatchingEasy easy = new CardMatchingEasy(cardLayout, cardPanel, mainPage, userData);
+    				cardPanel.add(easy, "easyPanel");
+    				cardLayout.show(cardPanel, "easyPanel");
+                }
+                else if(MainPage.level2.isSelected() && message == null) {
+                	String[] userData = mainPage.loginScreen.getUser();
+    		        CardMatchingMedium medium = new CardMatchingMedium(cardLayout, cardPanel, mainPage, userData);
+    				cardPanel.add(medium, "mediumPanel");
+    				cardLayout.show(cardPanel, "mediumPanel");
+                }
+                else if(MainPage.level3.isSelected() && message == null) {
+                	String[] userData = mainPage.loginScreen.getUser();
+    		        CardMatchingHard hard = new CardMatchingHard(cardLayout, cardPanel, mainPage, userData);
+    				cardPanel.add(hard, "hardPanel");
+    				cardLayout.show(cardPanel, "hardPanel");
                 }
             }
         });

@@ -135,11 +135,11 @@ public class LoginScreen extends JPanel{
     			cardLayout.show(cardPanel, "mainPanel");
     		}
     		else if(nickname.getText().trim().isEmpty() || password.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(LoginScreen.this, "닉네임과 비밀번호를 입력하세요.", "입력 오류", JOptionPane.ERROR_MESSAGE);
+                ErrorMessage.showErrorDialog("입력 오류", "닉네임과 비밀번호를 입력하세용.");
                 dataManager.clear(nickname, password);
             } 
     		else if(!dataManager.dataCheck(nickname.getText(), password.getText())){
-    			JOptionPane.showMessageDialog(LoginScreen.this, "일치하는 정보가 없습니다.", "입력 오류", JOptionPane.ERROR_MESSAGE);
+    			ErrorMessage.showErrorDialog("입력 오류", "일치하는 정보가 없어용.");
 //    			cardLayout.show(cardPanel, "startPanel");
     			dataManager.clear(nickname, password);
 	    		}

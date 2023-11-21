@@ -35,16 +35,14 @@ public class MainPage extends JPanel {
 
     private CardLayout cardLayout;
 	private JPanel cardPanel;
-	private LoginScreen loginScreen;
+	protected LoginScreen loginScreen;
+	
 	
     /**MainPage클래스의 생성자
      *
      * @param titlename frame의 title에 해당하는 변수
      */
     public MainPage(CardLayout layout, JPanel panel,LoginScreen loginScreen) {
-//        super(titlename);
-//        initializeFrame();
-
         cardLayout = layout;
 	    cardPanel = panel;
 	    this.loginScreen = loginScreen;
@@ -79,10 +77,12 @@ public class MainPage extends JPanel {
         leftPanel.add(level3, gbc);
 
         //게임 시작 label
-        LabelStartEvent label_gameStart = new LabelStartEvent("게임 시작");
+        LabelStartEvent label_gameStart = new LabelStartEvent("게임 시작", layout, panel, MainPage.this);
         gbc.gridy = 1;
         gbc.insets = new Insets(0, 0, 0, 0);
         leftPanel.add(label_gameStart, gbc);
+       
+        
 
         //정보열람 label
         MainPageLabels label_infoPage = new MainPageLabels("정보 열람");

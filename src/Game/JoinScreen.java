@@ -123,15 +123,18 @@ public class JoinScreen extends JPanel{
         checkButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
                 if (nickname.getText().trim().isEmpty() || password.getText().trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(JoinScreen.this, "닉네임과 비밀번호를 입력하세요.", "입력 오류", JOptionPane.ERROR_MESSAGE);
+//                    JOptionPane.showMessageDialog(JoinScreen.this, "닉네임과 비밀번호를 입력하세요.", "입력 오류", JOptionPane.ERROR_MESSAGE);
+                	ErrorMessage.showErrorDialog("입력 오류", "닉네임과 비밀번호를 입력하세용.");
                 } 
                 else {
                 	if(dataManager.dataCheck(nickname.getText(),password.getText())) {
-                		JOptionPane.showMessageDialog(JoinScreen.this, "이미 가입되었습니다.", "입력 오류", JOptionPane.ERROR_MESSAGE);
+//                		JOptionPane.showMessageDialog(JoinScreen.this, "이미 가입되었습니다.", "입력 오류", JOptionPane.ERROR_MESSAGE);
+                		ErrorMessage.showErrorDialog("입력 오류", "이미 가입되었어용.");
                 		cardLayout.show(cardPanel, "startPanel");
                 	}
                 	else if(!dataManager.pwCheck(password.getText())){
-                		JOptionPane.showMessageDialog(JoinScreen.this, "비밀번호는 4자리로 입력하세요.", "입력 오류", JOptionPane.ERROR_MESSAGE);
+//                		JOptionPane.showMessageDialog(JoinScreen.this, "비밀번호는 4자리로 입력하세요.", "입력 오류", JOptionPane.ERROR_MESSAGE);
+                		ErrorMessage.showErrorDialog("입력 오류", "비밀번호는 4자리로 입력하세용.");
                 		password.setText("");
                 	}
                 	else {
