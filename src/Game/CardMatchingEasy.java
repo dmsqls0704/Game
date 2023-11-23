@@ -2,13 +2,13 @@ package Game;
 
 import javax.swing.*;
 
-import Ingame.CardMatchingHard.Card;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static javax.swing.SwingUtilities.getWindowAncestor;
 
 /**
  * 난이도 하의 카드 매칭 게임을 나타냅니다.
@@ -87,6 +87,12 @@ public class CardMatchingEasy extends JPanel {
         add(mainPanel);
 //        pack(); // 내용에 딱맞게 화면 조정
 //        setLocationRelativeTo(null); //화면 센터로 고정
+
+        //타이머 추가
+        Level1Timer level1timer = new Level1Timer();
+        JProgressBar timerVisible = level1timer.getProgressBar();
+        topPanel.add(timerVisible);
+
         setVisible(true);
         
         addComponentListener(new java.awt.event.ComponentAdapter() {

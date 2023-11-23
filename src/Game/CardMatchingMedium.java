@@ -85,6 +85,11 @@ public class CardMatchingMedium extends JPanel {
         add(mainPanel);
 //        pack(); // 내용에 딱맞게 화면 조정
 //        setLocationRelativeTo(null); //화면 센터로 고정
+
+        Level2Timer level2timer = new Level2Timer();
+        JProgressBar timerVisible = level2timer.getProgressBar();
+        topPanel.add(timerVisible);
+
         setVisible(true);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
