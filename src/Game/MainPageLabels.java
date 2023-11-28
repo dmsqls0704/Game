@@ -95,19 +95,19 @@ class LabelStartEvent extends MainPageLabels {
                     leftPanel.revalidate();
                     leftPanel.repaint();
                 }
-                else if(MainPage.level1.isSelected() && message == null) {
+                else if(MainPage.level1.isSelected()) {
                 	String[] userData = mainPage.loginScreen.getUser();
     		        CardMatchingEasy easy = new CardMatchingEasy(cardLayout, cardPanel, mainPage, userData);
     				cardPanel.add(easy, "easyPanel");
     				cardLayout.show(cardPanel, "easyPanel");
                 }
-                else if(MainPage.level2.isSelected() && message == null) {
+                else if(MainPage.level2.isSelected()) {
                 	String[] userData = mainPage.loginScreen.getUser();
     		        CardMatchingMedium medium = new CardMatchingMedium(cardLayout, cardPanel, mainPage, userData);
     				cardPanel.add(medium, "mediumPanel");
     				cardLayout.show(cardPanel, "mediumPanel");
                 }
-                else if(MainPage.level3.isSelected() && message == null) {
+                else if(MainPage.level3.isSelected()) {
                 	String[] userData = mainPage.loginScreen.getUser();
     		        CardMatchingHard hard = new CardMatchingHard(cardLayout, cardPanel, mainPage, userData);
     				cardPanel.add(hard, "hardPanel");

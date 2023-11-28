@@ -2,8 +2,6 @@ package Game;
 
 import javax.swing.*;
 
-import Ingame.CardMatchingHard.Card;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -14,18 +12,18 @@ import java.util.List;
  * 난이도 하의 카드 매칭 게임을 나타냅니다.
  * JFrame을 확장하며 게임의 그래픽 사용자 인터페이스(GUI)를 포함합니다.
  */
+
 public class CardMatchingEasy extends JPanel {
     private JPanel cardPanel;
     private JPanel topPanel;  
-    private JLabel scoreLabel;
+    private JLabel scoreLabel;  
     private List<Card> cards;
     private Card selectedCard = null;
     private int pairsFound = 0;
     private Score cardScore;
     private static final String initialImagePath = "cardlogo.jpg";
-    private static final int initialImageWidth = 162;
-    private static final int initialImageHeight = 216;
     private boolean isComparing = false;
+
 
     private CardLayout cardLayout;
 	private JPanel panel;
@@ -40,12 +38,12 @@ public class CardMatchingEasy extends JPanel {
 //        setTitle("엎어라 뒤집어라");
 //        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        setExtendedState(JFrame.MAXIMIZED_BOTH);
-//        setResizable(false); // 전체화면으로 고정
-    	
+//        setResizable(false);
+        
     	cardLayout = layout;
   	    this.panel = panel;
   	    this.mainPage = mainPage;
-      	
+  	    
         cardScore = new Score();
         topPanel = new JPanel(new FlowLayout());
         topPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -53,17 +51,22 @@ public class CardMatchingEasy extends JPanel {
         topPanel.add(scoreLabel);
         topPanel.setBackground(new Color(125, 159, 104));
         add(topPanel, BorderLayout.NORTH);
-        
+
+
         cardPanel = new JPanel(new GridLayout(4, 4, 10, 10));
         cardPanel.setBackground(new Color(237, 227, 206));
         cards = new ArrayList<>();
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int cardWidth = (int) (screenSize.getWidth() * 0.1);
+        int cardHeight = (int) (screenSize.getHeight() * 0.2);
 
         for (int i = 0; i < 8; i++) {
             String imagePath = "easy/easy" + (i + 1) + ".jpg";
             ImageIcon icon = new ImageIcon(imagePath);
 
             for (int j = 0; j < 2; j++) {
-                Card card = new Card(icon);
+                Card card = new Card(icon, cardWidth, cardHeight);
                 card.addMouseListener(new CardClickListener());
                 cards.add(card);
             }
@@ -75,20 +78,19 @@ public class CardMatchingEasy extends JPanel {
             cardPanel.add(card);
         }
 
-        initializeCardImages();
-
+        initializeCardImages(cardWidth, cardHeight);
+        
         JPanel centerPanel = new JPanel(new FlowLayout());
         centerPanel.add(cardPanel);
+        centerPanel.setBackground(new Color(237, 227, 206));
+        centerPanel.setPreferredSize(cardPanel.getPreferredSize());
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(topPanel, BorderLayout.NORTH);
         mainPanel.add(centerPanel, BorderLayout.CENTER);
         
         add(mainPanel);
-//        pack(); // 내용에 딱맞게 화면 조정
-//        setLocationRelativeTo(null); //화면 센터로 고정
         setVisible(true);
-        
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 resizeParentFrame();
@@ -113,24 +115,21 @@ public class CardMatchingEasy extends JPanel {
             parentFrame.setResizable(false);
         }
     }
-
-    
     
     /**
      * 게임의 모든 카드에 대한 이미지를 초기화합니다.
      * 각 카드의 기본 이미지 아이콘을 초기 이미지의 크기에 맞게 조절합니다.
      */
-    private void initializeCardImages() {
+    private void initializeCardImages(int cardWidth, int cardHeight) {
         ImageIcon defaultIcon = new ImageIcon(initialImagePath);
-        Image img = defaultIcon.getImage().getScaledInstance(initialImageWidth, initialImageHeight, Image.SCALE_SMOOTH);
+        Image img = defaultIcon.getImage().getScaledInstance(cardWidth, cardHeight, Image.SCALE_SMOOTH);
         defaultIcon = new ImageIcon(img);
-        
+
         for (Card card : cards) {
+            card.setPreferredSize(new Dimension(cardWidth, cardHeight));
             card.setIcon(defaultIcon);
         }
     }
-
-    
     /**
      * Card 클래스는 게임에서 사용되는 카드를 나타냅니다.
      * 각 카드에는 연관된 이미지 아이콘이 있으며 앞면이나 뒷면으로 나타낼 수 있습니다.
@@ -144,10 +143,10 @@ public class CardMatchingEasy extends JPanel {
          *
          * @param icon 카드와 연관된 이미지 아이콘입니다.
          */
-        public Card(ImageIcon icon) {
+        public Card(ImageIcon icon, int width, int height) {
             this.icon = icon;
-            setPreferredSize(new Dimension(initialImageWidth, initialImageHeight));
-            setIcon(icon);
+            setPreferredSize(new Dimension(width, height));
+            setIcon(scaleIcon(icon, getPreferredSize()));
         }
 
         /**
@@ -201,7 +200,7 @@ public class CardMatchingEasy extends JPanel {
             } else {
                 isComparing = true;
 
-                Timer cardTimer = new Timer(50, new ActionListener() { 
+                Timer cardTimer = new Timer(40, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (selectedCard.icon.equals(clickedCard.icon)) {
@@ -230,14 +229,15 @@ public class CardMatchingEasy extends JPanel {
                 cardTimer.start();
             }
         }
-    	
-    	/**
-    	 * 이미지 아이콘을 지정된 크기로 조절하는 유틸리티 메서드입니다.
-    	 *
-    	 * @param originalIcon 조절할 원본 이미지 아이콘입니다.
-    	 * @param size 조절된 이미지의 크기를 나타내는 Dimension 객체입니다.
-    	 * @return 지정된 크기로 조절된 이미지 아이콘을 나타내는 ImageIcon 객체입니다.
-    	 */
+
+       
+       /**
+        * 이미지 아이콘을 지정된 크기로 조절하는 유틸리티 메서드입니다.
+        *
+        * @param originalIcon 조절할 원본 이미지 아이콘입니다.
+        * @param size 조절된 이미지의 크기를 나타내는 Dimension 객체입니다.
+        * @return 지정된 크기로 조절된 이미지 아이콘을 나타내는 ImageIcon 객체입니다.
+        */
         private ImageIcon scaleIcon(ImageIcon originalIcon, Dimension size) {
             Image image = originalIcon.getImage();
             Image scaledImage = image.getScaledInstance(size.width, size.height, Image.SCALE_SMOOTH);
@@ -245,4 +245,6 @@ public class CardMatchingEasy extends JPanel {
         }
     }
 
+    
 }
+

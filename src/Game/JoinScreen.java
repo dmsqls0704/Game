@@ -93,7 +93,6 @@ public class JoinScreen extends JPanel{
         Font fontB = Utility.yeongdeok_sea(30);
        
         JButton backButton = new RoundedButton("");
-        backButton.setPreferredSize(new Dimension(80, 80));
         backButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		cardLayout.show(cardPanel,"startPanel");

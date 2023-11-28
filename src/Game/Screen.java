@@ -28,6 +28,11 @@ class GameScreen extends JFrame {
 	private JPanel cardPanel;
 	private int laptopWidth;
     private int laptopHeight;
+    /**버튼의 가로 길이 저장한 변수*/
+    private int buttonwidth;
+    /**버튼의 세로 길이 저장한 변수*/
+    private int buttonheight;
+
     /**
      * GameScreen클래스의 생성자이다.
      */
@@ -42,6 +47,11 @@ class GameScreen extends JFrame {
         
         setSize(laptopWidth, laptopHeight);
         setResizable(false);
+        setLocationRelativeTo(null);
+
+
+        buttonwidth = (int)(laptopWidth*0.25);
+        buttonheight = (int)(laptopHeight*0.07);
         /** 게임 아이콘 변경 */
         try {
             Image iconImage = ImageIO.read(Screen.class.getResource("/image/logo.jpg"));
@@ -172,10 +182,5 @@ class GameScreen extends JFrame {
         
 //        cardLayout.show(cardPanel, "startPanel");
     }
-    
-    /**버튼의 가로 길이 저장한 변수*/
-    private final int buttonwidth = 200;
-    /**버튼의 세로 길이 저장한 변수*/
-    private final int buttonheight = 50;
    
 }
