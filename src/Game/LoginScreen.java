@@ -55,7 +55,7 @@ public class LoginScreen extends JPanel{
 	    
 	    JPanel panelL = new JPanel();
 	    panelL.setLayout(new GridBagLayout());
-	    panelL.setBackground(new Color(248,244,235));
+	    panelL.setBackground(Utility.backcolor);
 	    
 	    Font titleFont = Utility.yeongdeok_haeparang(50);
 	    Font font = Utility.yeongdeok_sea(40);

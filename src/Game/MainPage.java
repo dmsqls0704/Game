@@ -2,7 +2,7 @@ package Game;
 
 import javax.swing.*;
 
-import static MainPacage.MainPage.leftPanel;
+//import static Game.MainPage.leftPanel;
 
 import java.awt.*;
 import java.awt.event.*;

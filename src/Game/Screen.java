@@ -42,8 +42,8 @@ class GameScreen extends JFrame {
         /** 게임 프레임 크기 설정 */
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();
-        laptopWidth = (int) (screenSize.getWidth() * 0.7);
-        laptopHeight = (int) (screenSize.getHeight() * 0.8);
+        laptopWidth = (int) (screenSize.getWidth() * 0.8);
+        laptopHeight = (int) (screenSize.getHeight() * 0.9);
         
         setSize(laptopWidth, laptopHeight);
         setResizable(false);

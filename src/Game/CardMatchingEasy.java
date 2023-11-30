@@ -24,6 +24,7 @@ public class CardMatchingEasy extends JPanel {
     private static final String initialImagePath = "cardlogo.jpg";
     private boolean isComparing = false;
 
+    private JPanel panelG;
 
     private CardLayout cardLayout;
 	private JPanel panel;
@@ -43,24 +44,39 @@ public class CardMatchingEasy extends JPanel {
     	cardLayout = layout;
   	    this.panel = panel;
   	    this.mainPage = mainPage;
+
+  	    setVisible(true);
+  	    setLayout(cardLayout);
+  	    
+  	    panelG = new JPanel();
+  	    panelG.setLayout(new GridBagLayout());
+  	    panelG.setBackground(Utility.backcolor);
+	  	
+  	    GridBagConstraints gbc = new GridBagConstraints();
+	  	gbc.gridx = 0;
+	  	gbc.gridy = 0;
+	  	gbc.gridwidth = 1;
+	  	gbc.gridheight = 1;
+	  	gbc.fill = GridBagConstraints.BOTH;
+	  	gbc.weightx = 1.0;
+	  	gbc.weighty = 1.0;
   	    
         cardScore = new Score();
         topPanel = new JPanel(new FlowLayout());
         topPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         scoreLabel = new JLabel("Score: 0");
         topPanel.add(scoreLabel);
-        topPanel.setBackground(new Color(125, 159, 104));
-        add(topPanel, BorderLayout.NORTH);
+        topPanel.setBackground(Utility.maincolor);
+        panelG.add(topPanel, gbc);
 
 
         cardPanel = new JPanel(new GridLayout(4, 4, 10, 10));
         cardPanel.setBackground(new Color(237, 227, 206));
         cards = new ArrayList<>();
 
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int cardWidth = (int) (screenSize.getWidth() * 0.1);
-        int cardHeight = (int) (screenSize.getHeight() * 0.2);
-
+        Dimension parentFrame = Toolkit.getDefaultToolkit().getScreenSize();
+        int cardWidth = (int) (parentFrame.getWidth()* 0.8 * 0.09);
+        int cardHeight = (int) (parentFrame.getHeight()* 0.9 *0.19);
         for (int i = 0; i < 8; i++) {
             String imagePath = "easy/easy" + (i + 1) + ".jpg";
             ImageIcon icon = new ImageIcon(imagePath);
@@ -84,12 +100,15 @@ public class CardMatchingEasy extends JPanel {
         centerPanel.add(cardPanel);
         centerPanel.setBackground(new Color(237, 227, 206));
         centerPanel.setPreferredSize(cardPanel.getPreferredSize());
-
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(topPanel, BorderLayout.NORTH);
-        mainPanel.add(centerPanel, BorderLayout.CENTER);
         
-        add(mainPanel);
+        gbc.gridy=1;
+        panelG.add(centerPanel,gbc);
+//        JPanel mainPanel = new JPanel(new BorderLayout());
+//        mainPanel.setBackground(Utility.backcolor);
+//        mainPanel.add(topPanel, BorderLayout.NORTH);
+//        mainPanel.add(centerPanel, BorderLayout.CENTER);
+        
+//        add(mainPanel);
         setVisible(true);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
@@ -97,7 +116,7 @@ public class CardMatchingEasy extends JPanel {
             }
         });
         
-        
+        add(panelG,"EasyPanel");
     }
 
     private void resizeParentFrame() {
@@ -106,7 +125,6 @@ public class CardMatchingEasy extends JPanel {
         while (!(container instanceof JFrame) && container != null) {
             container = container.getParent();
         }
-
         if (container instanceof JFrame) {
             JFrame parentFrame = (JFrame) container;
 
@@ -115,7 +133,6 @@ public class CardMatchingEasy extends JPanel {
             parentFrame.setResizable(false);
         }
     }
-    
     /**
      * 게임의 모든 카드에 대한 이미지를 초기화합니다.
      * 각 카드의 기본 이미지 아이콘을 초기 이미지의 크기에 맞게 조절합니다.
@@ -179,7 +196,6 @@ public class CardMatchingEasy extends JPanel {
             return new ImageIcon(scaledImage);
         }
     }
-
     /**
      * CardClickListener 클래스는 카드에 대한 마우스 클릭 이벤트를 처리합니다.
      * MouseAdapter 인터페이스를 구현합니다.
@@ -207,8 +223,8 @@ public class CardMatchingEasy extends JPanel {
                             cardScore.increaseScore(2);
                             scoreLabel.setText("Score: " + cardScore.getScore());
                             pairsFound++;
-                            if (pairsFound == 8) {
-                                JOptionPane.showMessageDialog(null, "You win!");
+                            if (pairsFound == 1) {    
+                                 addfinishPanel(cardLayout, panel, mainPage);
                             }
                             selectedCard.setEnabled(false);
                             clickedCard.setEnabled(false);
@@ -219,17 +235,14 @@ public class CardMatchingEasy extends JPanel {
                             clickedCard.isFaceUp = false;
                             clickedCard.setIcon(scaleIcon(new ImageIcon(initialImagePath), clickedCard.getPreferredSize()));
                         }
-
                         selectedCard = null;
                         isComparing = false;
                     }
                 });
-
                 cardTimer.setRepeats(false);
                 cardTimer.start();
             }
         }
-
        
        /**
         * 이미지 아이콘을 지정된 크기로 조절하는 유틸리티 메서드입니다.
@@ -244,7 +257,40 @@ public class CardMatchingEasy extends JPanel {
             return new ImageIcon(scaledImage);
         }
     }
+    
+    private void addpausePanel(CardLayout layout, JPanel panel, MainPage mainPage) {
 
+    	cardLayout = layout;
+  	    this.panel = panel;
+  	    this.mainPage = mainPage;
+  	    
+        // 새로운 패널 생성
+        PausePage pausePanel = new PausePage(layout, panel, mainPage);
+
+        // 기존 패널에 새로운 패널 추가
+        panelG.add(pausePanel.getPausePanel(),"pausePanel");
+
+        CardLayout cardLayout = (CardLayout) panelG.getLayout();
+        cardLayout.show(panelG, "pausePanel");
+        
+    }
+    private void addfinishPanel(CardLayout layout, JPanel panel, MainPage mainPage) {
+
+    	cardLayout = layout;
+  	    this.panel = panel;
+  	    this.mainPage = mainPage;
+  	    
+        // 새로운 패널 생성
+        FinishPage finishPanel = new FinishPage(layout, panel, mainPage);
+
+        // 기존 패널에 새로운 패널 추가
+        panel.add(finishPanel.getFinishPanel(), "finishPanel");
+
+        // 카드를 새로운 패널로 전환
+        cardLayout = (CardLayout) panel.getLayout();
+        cardLayout.show(panel, "finishPanel");
+
+    }
     
 }
 
