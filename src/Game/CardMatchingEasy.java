@@ -110,15 +110,15 @@ public class CardMatchingEasy extends JPanel {
         
 //        add(mainPanel);
         setVisible(true);
-        addComponentListener(new java.awt.event.ComponentAdapter() {
+   /*     addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 resizeParentFrame();
             }
         });
-        
+     */   
         add(panelG,"EasyPanel");
     }
-
+/*
     private void resizeParentFrame() {
         // 현재 패널이 속한 JFrame 찾기
         Container container = this;
@@ -133,6 +133,7 @@ public class CardMatchingEasy extends JPanel {
             parentFrame.setResizable(false);
         }
     }
+    */
     /**
      * 게임의 모든 카드에 대한 이미지를 초기화합니다.
      * 각 카드의 기본 이미지 아이콘을 초기 이미지의 크기에 맞게 조절합니다.
