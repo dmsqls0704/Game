@@ -19,8 +19,8 @@ class PauseFinishPage extends JPanel {
     private JPanel panelF;
 
     public CardLayout cardLayout;
-	public JPanel cardPanel;
-	public MainPage mainPage;
+    public JPanel cardPanel;
+    public MainPage mainPage;
 
     /**
      * PauseFinishPage클래스의 생성자
@@ -31,7 +31,7 @@ class PauseFinishPage extends JPanel {
 
         cardLayout = layout;
         cardPanel = panel;
-        
+
         //타이틀 아이콘 변경
 //        try {
 //            // 이미지 파일을 읽어와서 아이콘 이미지로 설정
@@ -43,13 +43,13 @@ class PauseFinishPage extends JPanel {
 //        }
 //
 //        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       
+
 //        Container contentPane = getContentPane();
 //        contentPane.setLayout(new BorderLayout()); // GridBagLayout을 사용
 //        setLayout(cardLayout);
-        
+
         panelF = new JPanel();
-        
+
         panelF.setLayout(new GridBagLayout());
 //        pauseFinishPanel = new JPanel();
         panelF.setBackground(Utility.pointcolor);
@@ -68,7 +68,7 @@ class PauseFinishPage extends JPanel {
         homeButton.addActionListener(e -> openNewFrame());
         panelF.add(homeButton,gbc);
 
-       
+
         add(panelF,"pausefinishPage");
         setVisible(true);
     }
@@ -92,7 +92,7 @@ class PauseFinishPage extends JPanel {
 //        currentFrame.setVisible(false);
         // 새로운 프레임 생성
 //        MainPage homeFrame = new MainPage ("엎어라 뒤집어라_Main Page");
-        cardLayout.show(cardPanel, "mainPanel"); 
+        cardLayout.show(cardPanel, "mainPanel");
 
         // 현재 프레임 닫기
 //        WindowEvent windowClosing = new WindowEvent((Window) SwingUtilities.getWindowAncestor(this), WindowEvent.WINDOW_CLOSING);
@@ -116,15 +116,15 @@ class PausePage {
     /**PausePage의 생성자로 Panel객체를 생성한다.
      *PauseFinishPage클래스로 생성된 객체를 받아 변수에 저장
      */
-    
+
     public CardLayout cardLayout;
-	public JPanel cardPanel;
-	public MainPage mainPage;
-	
+    public JPanel cardPanel;
+    public MainPage mainPage;
+
     public PausePage(CardLayout layout, JPanel panel, MainPage mainPage) {
         cardLayout = layout;
         cardPanel = panel;
-        
+
         PauseFinishPage pause = new PauseFinishPage("엎어라 뒤집어라_Pause Page","/image/play.png", layout, panel, mainPage);
         pausePanel = pause.getPausePanel();
         pausePanel.setBackground(Utility.pausefinishpagecolor);
@@ -147,55 +147,56 @@ class FinishPage{
      *또한 파일에 저장된 정보를 불러와 Panel에 추가하는 메소드
      */
     public CardLayout cardLayout;
-	public JPanel cardPanel;
-	public MainPage mainPage;
-	
-	public FinishPage(CardLayout layout, JPanel panel, MainPage mainPage) {
-	    cardLayout = layout;
-	    cardPanel = panel;
+    public JPanel cardPanel;
+    public MainPage mainPage;
 
-	    PauseFinishPage finish = new PauseFinishPage("엎어라 뒤집어라_Finish Page", "/image/replay.png", cardLayout, cardPanel, mainPage);
-	    finishPanel = finish.getPausePanel();
-	    finishPanel.setBackground(Utility.pausefinishpagecolor);
+    public FinishPage(CardLayout layout, JPanel panel, MainPage mainPage,int finalscore) {
+        cardLayout = layout;
+        cardPanel = panel;
 
-	    File infofile = new File("user_data.txt");
-	    String scoreContent = "";
+        PauseFinishPage finish = new PauseFinishPage("엎어라 뒤집어라_Finish Page", "/image/replay.png", cardLayout, cardPanel, mainPage);
+        finishPanel = finish.getPausePanel();
+        finishPanel.setBackground(Utility.pausefinishpagecolor);
 
-	    try (BufferedReader br = new BufferedReader(new FileReader(infofile))) {
-	        String line;
-	        int currentLine = 1;
+//        File infofile = new File("user_data.txt");
+//        String scoreContent = "";
+        String scoreContent = String.valueOf(finalscore);
 
-	        while ((line = br.readLine()) != null) {
-	            if (currentLine == 3) {
-	                // 특정 줄의 내용을 출력하거나 필요한 작업 수행
-	                scoreContent = line;
-	                System.out.println(line);
-	                break; // 찾았으면 반복문 종료
-	            }
-	            currentLine++;
-	        }
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
+//        try (BufferedReader br = new BufferedReader(new FileReader(infofile))) {
+//            String line;
+//            int currentLine = 1;
+//
+//            while ((line = br.readLine()) != null) {
+//                if (currentLine == 3) {
+//                    // 특정 줄의 내용을 출력하거나 필요한 작업 수행
+//                    scoreContent = line;
+//                    System.out.println(line);
+//                    break; // 찾았으면 반복문 종료
+//                }
+//                currentLine++;
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
-	    // 패널에 내용 추가
-	    GridBagConstraints gbc = new GridBagConstraints();
-	    gbc.gridy = 0;
-	    Font scorefont = Utility.yeongdeok_haeparang(70);
+        // 패널에 내용 추가
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridy = 0;
+        Font scorefont = Utility.yeongdeok_haeparang(70);
 
-	    JLabel finishscore = new JLabel(scoreContent);
-	    finishscore.setForeground(Utility.maincolor);
-	    finishscore.setBackground(Utility.pausefinishpagecolor);
-	    finishscore.setFont(scorefont);
+        JLabel finishscore = new JLabel(scoreContent);
+        finishscore.setForeground(Utility.maincolor);
+        finishscore.setBackground(Utility.pausefinishpagecolor);
+        finishscore.setFont(scorefont);
 
-	    finishPanel.add(finishscore, gbc);
+        finishPanel.add(finishscore, gbc);
 
-	    
-	    cardPanel.add(finishPanel, "finishPanel");
 
-	    // CardLayout을 이용하여 cardPanel에 finishPanel을 추가
-	    cardLayout.addLayoutComponent(finishPanel, "finishPanel");
-	}
+        cardPanel.add(finishPanel, "finishPanel");
+
+        // CardLayout을 이용하여 cardPanel에 finishPanel을 추가
+        cardLayout.addLayoutComponent(finishPanel, "finishPanel");
+    }
 
     /**
      * 객체의 생성된 Panel을 반환하는 메소드
@@ -204,7 +205,6 @@ class FinishPage{
     public JPanel getFinishPanel(){
         return this.finishPanel;
     }
-    
-    
-}
 
+
+}

@@ -163,4 +163,11 @@ public class LoginScreen extends JPanel{
 		return userData;
 	}
 	
+	public void saveScore(int finalScore) {
+		 int userdata = Integer.parseInt(userData[2]);
+	    if(userdata <= finalScore) {
+	        userData[2] = String.valueOf(finalScore); // 배열의 값을 변경
+	        dataManager.saveScore(userData[0], userData[1], userData[2]);
+	    }
+	}
 }

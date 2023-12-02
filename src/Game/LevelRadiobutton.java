@@ -79,11 +79,11 @@ class LevelRadiobutton extends JRadioButton {
                     }
                 }
 
-                // 다른 라디오 버튼을 선택하면 현재 라디오 버튼의 글꼴을 원래대로 설정
-                ButtonModel model = getModel();
-                if (!model.isSelected()) {
-                    setFont(radioButtonFont);
-                }
+//                // 다른 라디오 버튼을 선택하면 현재 라디오 버튼의 글꼴을 원래대로 설정
+//                ButtonModel model = getModel();
+//                if (!model.isSelected()) {
+//                    setFont(radioButtonFont);
+//                }
             }
         });
 

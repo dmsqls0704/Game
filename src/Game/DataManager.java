@@ -82,7 +82,7 @@ public class DataManager{
                 String score = reader.readLine();
 
                 if (inputN.equals(dataName)) {
-                    return new String[]{dataName, score};
+                    return new String[]{dataName,dataPW, score};
                 }
             }
         } catch (IOException e) {
@@ -90,4 +90,32 @@ public class DataManager{
         }
         return null; 
     }
+	public void saveScore(String nickname, String pw, String newScore) {
+	    try (BufferedReader reader = new BufferedReader(new FileReader(fileName));
+	         BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"))) {
+	        String line;
+	        while ((line = reader.readLine()) != null) {
+	            String dataName = line;
+	            String dataPW = reader.readLine();
+	            String score = reader.readLine();
+
+	            if (nickname.equals(dataName)) {
+	                // 특정 사용자의 점수를 업데이트합니다
+	                writer.write(dataName + "\n" + dataPW + "\n" + newScore + "\n");
+	            } else {
+	                writer.write(dataName + "\n" + dataPW + "\n" + score + "\n");
+	            }
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+
+	    // 임시 파일을 원래 파일 이름으로 변경합니다
+	    File originalFile = new File(fileName);
+	    File tempFile = new File("temp.txt");
+	      if (originalFile.delete() && tempFile.renameTo(originalFile)) {
+	    } else {
+	    }
+	}
+	
 }

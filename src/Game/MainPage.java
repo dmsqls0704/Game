@@ -2,7 +2,7 @@ package Game;
 
 import javax.swing.*;
 
-//import static Game.MainPage.leftPanel;
+import static Game.MainPage.leftPanel;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -35,17 +35,20 @@ public class MainPage extends JPanel {
 
     private CardLayout cardLayout;
 	private JPanel cardPanel;
-	protected LoginScreen loginScreen;
-	
+	protected LoginScreen loginscreen;
+
+    static LabelStartEvent label_gameStart;
+    static LabelSettingEvent label_setting;
+    static MainPageLabels label_infoPage;
 	
     /**MainPage클래스의 생성자
      *
      * @param titlename frame의 title에 해당하는 변수
      */
-    public MainPage(CardLayout layout, JPanel panel,LoginScreen loginScreen) {
+    public MainPage(CardLayout layout, JPanel panel,LoginScreen loginscreen) {
         cardLayout = layout;
 	    cardPanel = panel;
-	    this.loginScreen = loginScreen;
+	    this.loginscreen = loginscreen;
     		
 		setLayout(cardLayout);
 		Utility.playMusic();
@@ -77,21 +80,19 @@ public class MainPage extends JPanel {
         leftPanel.add(level3, gbc);
 
         //게임 시작 label
-        LabelStartEvent label_gameStart = new LabelStartEvent("게임 시작", layout, panel, MainPage.this);
+        label_gameStart = new LabelStartEvent("게임 시작", layout, panel, MainPage.this,loginscreen);
         gbc.gridy = 1;
         gbc.insets = new Insets(0, 0, 0, 0);
         leftPanel.add(label_gameStart, gbc);
-       
-        
 
         //정보열람 label
-        MainPageLabels label_infoPage = new MainPageLabels("정보 열람");
+        label_infoPage = new MainPageLabels("정보 열람");
         gbc.gridy = 3;
         leftPanel.add(label_infoPage, gbc);
         
         label_infoPage.addMouseListener(new MouseAdapter(){
         	public void mouseClicked(MouseEvent e) {
-    		        String[] userData = loginScreen.getUser();
+    		        String[] userData = loginscreen.getUser();
     		        CardInfo cardInfo = new CardInfo(cardLayout, cardPanel, MainPage.this, userData);
     				cardPanel.add(cardInfo, "infoPanel");
     				cardLayout.show(cardPanel, "infoPanel");
@@ -99,7 +100,7 @@ public class MainPage extends JPanel {
         });
         
         //설정 label
-        LabelSettingEvent label_setting = new LabelSettingEvent("설정");
+        label_setting = new LabelSettingEvent("설정");
         gbc.gridy = 4;
         leftPanel.add(label_setting, gbc);
         addBgmControls();

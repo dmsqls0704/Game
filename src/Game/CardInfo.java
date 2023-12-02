@@ -63,7 +63,7 @@ public class CardInfo extends JPanel{
         
         gbc.gridwidth = 2;
         JLabel userNick = new JLabel(data[0]);
-        JLabel userScore = new JLabel(data[1]);
+        JLabel userScore = new JLabel(data[2]);
         userNick.setMaximumSize(new Dimension(200, 80)); 
       
         userNick.setFont(font);
