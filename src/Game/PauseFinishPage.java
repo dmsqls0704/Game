@@ -52,7 +52,7 @@ class PauseFinishPage extends JPanel {
 
         panelF.setLayout(new GridBagLayout());
 //        pauseFinishPanel = new JPanel();
-        panelF.setBackground(Utility.pointcolor);
+//        panelF.setBackground(Utility.pausefinishpagecolor);
 //        add(pauseFinishPanel, BorderLayout.CENTER);
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -61,6 +61,11 @@ class PauseFinishPage extends JPanel {
         gbc.gridy=1;
         gbc.insets = new Insets(0, 0, 10, 0);
         panelF.add(topButton,gbc);
+//        // topButton 액션 리스너 내에 패널 전환 로직 추가
+//        topButton.addActionListener(e -> {
+//                cardLayout.show(cardPanel, "easyPanel");
+//        });
+
 
         homeButton = new PauseFinishButton("/image/homebutton.png");
         gbc.gridy=2;
@@ -81,6 +86,8 @@ class PauseFinishPage extends JPanel {
     public JPanel getPausePanel(){
         return this.panelF;
     }
+
+    public JButton gettopbutton(){return this.topButton;}
 
     /**
      * homebutton에 적용되는 이벤트 메소드
@@ -121,11 +128,19 @@ class PausePage {
     public JPanel cardPanel;
     public MainPage mainPage;
 
-    public PausePage(CardLayout layout, JPanel panel, MainPage mainPage) {
+    public PausePage(CardLayout layout, JPanel panel, MainPage mainPage,Timer leveltimer) {
         cardLayout = layout;
         cardPanel = panel;
 
         PauseFinishPage pause = new PauseFinishPage("엎어라 뒤집어라_Pause Page","/image/play.png", layout, panel, mainPage);
+
+        // topButton_일시정지 화면일 때
+        pause.gettopbutton().addActionListener(e -> {
+            leveltimer.restart();
+            cardLayout.show(cardPanel, "easyPanel");
+        });
+
+
         pausePanel = pause.getPausePanel();
         pausePanel.setBackground(Utility.pausefinishpagecolor);
     }
@@ -157,6 +172,9 @@ class FinishPage{
         PauseFinishPage finish = new PauseFinishPage("엎어라 뒤집어라_Finish Page", "/image/replay.png", cardLayout, cardPanel, mainPage);
         finishPanel = finish.getPausePanel();
         finishPanel.setBackground(Utility.pausefinishpagecolor);
+
+        // 여기서 패널을 투명하게 설정
+        finishPanel.setOpaque(false);
 
 //        File infofile = new File("user_data.txt");
 //        String scoreContent = "";
@@ -191,6 +209,13 @@ class FinishPage{
 
         finishPanel.add(finishscore, gbc);
 
+        // topButton_종료 화면일 때
+        finish.gettopbutton().addActionListener(e -> {
+            String[] userData = mainPage.loginScreen.getUser();
+            CardMatchingEasy easy = new CardMatchingEasy(cardLayout, cardPanel, mainPage, userData);
+            cardPanel.add(easy, "easyPanel");
+            cardLayout.show(cardPanel, "easyPanel");
+        });
 
         cardPanel.add(finishPanel, "finishPanel");
 

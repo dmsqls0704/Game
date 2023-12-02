@@ -66,11 +66,12 @@ public class CardMatchingEasy extends JPanel {
         // Add button to the right side
         gbc.gridx = 2;
         gbc.weightx = 0.0;
-        ImageIcon pauseIcon = new ImageIcon("src/image/pause.png");
+        ImageIcon pauseIcon = new ImageIcon("src/image/replay.png");
         button = new JButton(pauseIcon);
         button.setPreferredSize(new Dimension(20, 20));
         button.setBackground(Utility.maincolor);
         button.setBorderPainted(false);
+        button.addActionListener(e -> addpausePanel(cardLayout, panel, mainPage));
         button.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 addpausePanel(cardLayout, panel, mainPage); }
@@ -84,7 +85,7 @@ public class CardMatchingEasy extends JPanel {
         level1timer = new Level1Timer(score);
         JProgressBar timerVisible = level1timer.getProgressBar();
         topPanel.add(timerVisible);
-//        level1timer.addfinishPanel(cardLayout, panel, mainPage,score.getScore());
+        level1timer.addfinishPanel(cardLayout, panel, mainPage,score.getScore());
 
         // Add the JProgressBar to the center
         gbc.gridx = 0;
@@ -113,7 +114,6 @@ public class CardMatchingEasy extends JPanel {
                 Card card = new Card(icon, cardWidth, cardHeight);
                 card.addMouseListener(new CardClickListener());
                 cards.add(card);
-                level1timer.addfinishPanel(cardLayout, panel, mainPage,score.getScore());
             }
         }
 
@@ -268,18 +268,20 @@ public class CardMatchingEasy extends JPanel {
     }
 
     private void addpausePanel(CardLayout layout, JPanel panel, MainPage mainPage) {
+        level1timer.stopTimer();
+
         cardLayout = layout;
         this.panel = panel;
         this.mainPage = mainPage;
 
-        // 새로운 패널 생성
-        PausePage pausePanel = new PausePage(layout, panel, mainPage);
+        // 새로운 패널 생성(마지막 인자는 해당 게임의 타이머 전달)
+        PausePage pausePanel = new PausePage(layout, panel, mainPage,level1timer.getThisTimer());
 
         // 기존 패널에 새로운 패널 추가
-        panelG.add(pausePanel.getPausePanel(),"pausePanel");
+        panel.add(pausePanel.getPausePanel(),"pausePanel");
 
-        CardLayout cardLayout = (CardLayout) panelG.getLayout();
-        cardLayout.show(panelG, "pausePanel");
+        cardLayout = (CardLayout) panel.getLayout();
+        cardLayout.show(panel, "pausePanel");
     }
 
     private void addfinishPanel(CardLayout layout, JPanel panel, MainPage mainPage,int finalscore) {

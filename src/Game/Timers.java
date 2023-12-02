@@ -60,6 +60,12 @@ public class Timers{
     public int getTimerValue(){
         timer.stop();
         return this.timerValue;}
+
+    public void stopTimer(){
+        timer.stop();
+    }
+    public Timer getThisTimer(){return this.timer;}
+
     public void addfinishPanel(CardLayout layout, JPanel panel, MainPage mainPage,int finalscore) {
 
         cardLayout = layout;
