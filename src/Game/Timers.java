@@ -13,9 +13,15 @@ public class Timers{
     private Timer timer;
 
     private JProgressBar progressBar;
+
+    protected MainPage mainPage;
+    private CardLayout cardLayout;
+    private JPanel panel;
+    private Score gameScore;
 //    private JLabel timerLabel;
 
-    public Timers(int timelimit) {
+    public Timers(int timelimit,Score gameScore) {
+        this.gameScore = gameScore;
         // 프로그레스 바 초기화
         progressBar = new JProgressBar(0, timelimit);
         progressBar.setValue(timelimit);
@@ -37,6 +43,7 @@ public class Timers{
 
                 if (timerValue <= 0) {
                     timer.stop();
+                    addfinishPanel(cardLayout, panel, mainPage,gameScore.getScore());
                     //JOptionPane.showMessageDialog(, "Game Over!");
                 }
 //                } else {
@@ -46,36 +53,43 @@ public class Timers{
         });
 
         timer.start();
-        // 시작 버튼 초기화
-        //JButton startButton = new JButton("Start");
-        //startButton.addActionListener(new ActionListener() {
-        //    @Override
-        //    public void actionPerformed(ActionEvent e) {
-        //        timer.start();
-        //    }
-        //});
-
-        //add(progressBar);
-//        add(timerLabel);
-        //add(startButton);
     }
     public JProgressBar getProgressBar(){
         return this.progressBar;
     }
+    public int getTimerValue(){
+        timer.stop();
+        return this.timerValue;}
+    public void addfinishPanel(CardLayout layout, JPanel panel, MainPage mainPage,int finalscore) {
+
+        cardLayout = layout;
+        this.panel = panel;
+        this.mainPage = mainPage;
+
+        // 새로운 패널 생성
+        FinishPage finishPanel = new FinishPage(layout, panel, mainPage,finalscore);
+
+        // 기존 패널에 새로운 패널 추가
+        panel.add(finishPanel.getFinishPanel(), "finishPanel");
+
+    // 카드를 새로운 패널로 전환
+        cardLayout = (CardLayout) panel.getLayout();
+        cardLayout.show(panel, "finishPanel");
+    }
 }
 class Level1Timer extends Timers{
-    public Level1Timer(){
-        super(30);
+    public Level1Timer(Score gameScore){
+        super(30,gameScore);
     }
 }
-class Level2Timer extends Timers{
-    public Level2Timer(){
-        super(90);
-    }
-}
-class Level3Timer extends Timers{
-    public Level3Timer(){
-        super(180);
-    }
-}
+//class Level2Timer extends Timers{
+//    public Level2Timer(){
+//        super(90);
+//    }
+//}
+//class Level3Timer extends Timers{
+//    public Level3Timer(){
+//        super(180);
+//    }
+//}
 

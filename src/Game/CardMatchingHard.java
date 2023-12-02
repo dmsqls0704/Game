@@ -86,9 +86,9 @@ public class CardMatchingHard extends JPanel {
 //        pack(); // 내용에 딱맞게 화면 조정
 //        setLocationRelativeTo(null); //화면 센터로 고정
 
-        Level3Timer level3timer = new Level3Timer();
-        JProgressBar timerVisible = level3timer.getProgressBar();
-        topPanel.add(timerVisible);
+//        Level3Timer level3timer = new Level3Timer();
+//        JProgressBar timerVisible = level3timer.getProgressBar();
+//        topPanel.add(timerVisible);
 
         setVisible(true);
         addComponentListener(new java.awt.event.ComponentAdapter() {
