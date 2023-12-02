@@ -128,7 +128,7 @@ class PausePage {
     public JPanel cardPanel;
     public MainPage mainPage;
 
-    public PausePage(CardLayout layout, JPanel panel, MainPage mainPage,Timer leveltimer) {
+    public PausePage(CardLayout layout, JPanel panel, MainPage mainPage,Timer leveltimer,String panelName) {
         cardLayout = layout;
         cardPanel = panel;
 
@@ -137,7 +137,7 @@ class PausePage {
         // topButton_일시정지 화면일 때
         pause.gettopbutton().addActionListener(e -> {
             leveltimer.restart();
-            cardLayout.show(cardPanel, "easyPanel");
+            cardLayout.show(cardPanel, panelName);
         });
 
 

@@ -274,8 +274,8 @@ public class CardMatchingEasy extends JPanel {
         this.panel = panel;
         this.mainPage = mainPage;
 
-        // 새로운 패널 생성(마지막 인자는 해당 게임의 타이머 전달)
-        PausePage pausePanel = new PausePage(layout, panel, mainPage,level1timer.getThisTimer());
+        // 새로운 패널 생성(마지막에서 2번째인자는 해당 게임의 타이머 전달,마지막인자는 전환할 패널이름)
+        PausePage pausePanel = new PausePage(layout, panel, mainPage,level1timer.getThisTimer(),"easyPanel");
 
         // 기존 패널에 새로운 패널 추가
         panel.add(pausePanel.getPausePanel(),"pausePanel");
@@ -289,6 +289,9 @@ public class CardMatchingEasy extends JPanel {
         cardLayout = layout;
         this.panel = panel;
         this.mainPage = mainPage;
+
+//        String[] userData = mainPage.loginScreen.getUser();
+//        CardMatchingEasy easy = new CardMatchingEasy(cardLayout, cardPanel, mainPage, userData);
 
         // 새로운 패널 생성
         FinishPage finishPanel = new FinishPage(layout, panel, mainPage,finalscore);
