@@ -209,29 +209,48 @@ class FinishPage{
 
         finishPanel.add(finishscore, gbc);
 
-        if(MainPage.level1.isSelected()){
-            // topButton_종료 화면일 때
-            finish.gettopbutton().addActionListener(e -> {
-                String[] userData = mainPage.loginScreen.getUser();
-                CardMatchingEasy easy = new CardMatchingEasy(cardLayout, cardPanel, mainPage, userData);
-                cardPanel.add(easy, "easyPanel");
-                cardLayout.show(cardPanel, "easyPanel");
-            });
-        }else if (MainPage.level2.isSelected()) {
-            finish.gettopbutton().addActionListener(e -> {
-                String[] userData = mainPage.loginScreen.getUser();
-                CardMatchingMedium medium = new CardMatchingMedium(cardLayout, cardPanel, mainPage, userData);
-                cardPanel.add(medium, "mediumPanel");
-                cardLayout.show(cardPanel, "mediumPanel");
-            });
-        } else if (MainPage.level3.isSelected()) {
-            finish.gettopbutton().addActionListener(e -> {
-                String[] userData = mainPage.loginScreen.getUser();
-                CardMatchingHard hard = new CardMatchingHard(cardLayout, cardPanel, mainPage, userData);
-                cardPanel.add(hard, "hardPanel");
-                cardLayout.show(cardPanel, "hardPanel");
-            });
-        }
+        finish.gettopbutton().addActionListener(e -> {
+            if(MainPage.level1.isSelected()){
+                    String[] userData = mainPage.loginScreen.getUser();
+                    CardMatchingEasy easy = new CardMatchingEasy(cardLayout, cardPanel, mainPage, userData);
+                    cardPanel.add(easy, "easyPanel");
+                    cardLayout.show(cardPanel, "easyPanel");
+            }else if (MainPage.level2.isSelected()) {
+                    String[] userData = mainPage.loginScreen.getUser();
+                    CardMatchingMedium medium = new CardMatchingMedium(cardLayout, cardPanel, mainPage, userData);
+                    cardPanel.add(medium, "mediumPanel");
+                    cardLayout.show(cardPanel, "mediumPanel");
+            } else if (MainPage.level3.isSelected()) {
+                    String[] userData = mainPage.loginScreen.getUser();
+                    CardMatchingHard hard = new CardMatchingHard(cardLayout, cardPanel, mainPage, userData);
+                    cardPanel.add(hard, "hardPanel");
+                    cardLayout.show(cardPanel, "hardPanel");
+            }
+        });
+
+//        if(MainPage.level1.isSelected()){
+//            // topButton_종료 화면일 때
+//            finish.gettopbutton().addActionListener(e -> {
+//                String[] userData = mainPage.loginScreen.getUser();
+//                CardMatchingEasy easy = new CardMatchingEasy(cardLayout, cardPanel, mainPage, userData);
+//                cardPanel.add(easy, "easyPanel");
+//                cardLayout.show(cardPanel, "easyPanel");
+//            });
+//        }else if (MainPage.level2.isSelected()) {
+//            finish.gettopbutton().addActionListener(e -> {
+//                String[] userData = mainPage.loginScreen.getUser();
+//                CardMatchingMedium medium = new CardMatchingMedium(cardLayout, cardPanel, mainPage, userData);
+//                cardPanel.add(medium, "mediumPanel");
+//                cardLayout.show(cardPanel, "mediumPanel");
+//            });
+//        } else if (MainPage.level3.isSelected()) {
+//            finish.gettopbutton().addActionListener(e -> {
+//                String[] userData = mainPage.loginScreen.getUser();
+//                CardMatchingHard hard = new CardMatchingHard(cardLayout, cardPanel, mainPage, userData);
+//                cardPanel.add(hard, "hardPanel");
+//                cardLayout.show(cardPanel, "hardPanel");
+//            });
+//        }
 
 
         cardPanel.add(finishPanel, "finishPanel");
@@ -247,6 +266,5 @@ class FinishPage{
     public JPanel getFinishPanel(){
         return this.finishPanel;
     }
-
 
 }
