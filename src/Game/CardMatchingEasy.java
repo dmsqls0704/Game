@@ -29,13 +29,12 @@ public class CardMatchingEasy extends JPanel {
     private CardLayout cardLayout;
     private JPanel panel;
     private JPanel panelG;
-    private String[] data;
     private int finalscore;
     /**
      * CardMatchingEasy 클래스의 생성자입니다.
      * 게임 창을 초기화하고 사용자 인터페이스를 설정합니다.
      */
-    public CardMatchingEasy(CardLayout layout, JPanel panel, MainPage mainPage,LoginScreen loginscreen, String[] data) {
+    public CardMatchingEasy(CardLayout layout, JPanel panel, MainPage mainPage,LoginScreen loginscreen) {
         cardLayout = layout;
         this.panel = panel;
         this.mainPage = mainPage;
@@ -49,6 +48,7 @@ public class CardMatchingEasy extends JPanel {
 
         score = new Score();
         scoreLabel = new JLabel("Score:0");
+        scoreLabel.setFont(Utility.yeongdeok_sea(25));
         topPanel = new JPanel(new GridBagLayout());
         topPanel.setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 40));
         topPanel.setBackground(Utility.maincolor);
@@ -85,7 +85,7 @@ public class CardMatchingEasy extends JPanel {
         level1timer = new Level1Timer(score);
         JProgressBar timerVisible = level1timer.getProgressBar();
         topPanel.add(timerVisible);
-//        level1timer.addfinishPanel(cardLayout, panel, mainPage,score.getScore());
+        level1timer.addfinishPanel(cardLayout, panel, mainPage,loginscreen,score.getScore());
 
         // Add the JProgressBar to the center
         gbc.gridx = 0;
@@ -107,14 +107,13 @@ public class CardMatchingEasy extends JPanel {
         int cardWidth = (int) (parentFrame.getWidth()* 0.09);
         int cardHeight = (int) (parentFrame.getHeight()* 0.18);
         for (int i = 0; i < 8; i++) {
-            String imagePath = "easy/easy" + (i + 1) + ".jpg";
+            String imagePath = "src/easy/easy" + (i + 1) + ".jpg";
             ImageIcon icon = new ImageIcon(imagePath);
 
             for (int j = 0; j < 2; j++) {
                 Card card = new Card(icon, cardWidth, cardHeight);
                 card.addMouseListener(new CardClickListener());
                 cards.add(card);
-                level1timer.addfinishPanel(cardLayout, panel, mainPage,score.getScore());
             }
         }
 
@@ -225,16 +224,13 @@ public class CardMatchingEasy extends JPanel {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (selectedCard.icon.equals(clickedCard.icon)) {
-                            score.increaseScore(2);
-                            scoreLabel.setText("Score: " + score.getScore());
+                            score.increaseScore(20);
+                            scoreLabel.setText("Score:" + score.getScore());
                             pairsFound++;
-                            if (pairsFound == 2) {
+                            if (pairsFound == 8) {
                                 int timerScore = level1timer.getTimerValue();
-//                                Score scoreInstance = new Score();
-//                                scoreInstance.TimerScore(timerScore);
                                 score.TimerScore(timerScore);
                                 addfinishPanel(cardLayout, panel, mainPage,loginscreen, score.totalScore());
-//                               JOptionPane.showMessageDialog(null, timerScore);
                             }
                             selectedCard.setEnabled(false);
                             clickedCard.setEnabled(false);
@@ -269,12 +265,14 @@ public class CardMatchingEasy extends JPanel {
     }
 
     private void addpausePanel(CardLayout layout, JPanel panel, MainPage mainPage) {
+        level1timer.stopTimer();
+
         cardLayout = layout;
         this.panel = panel;
         this.mainPage = mainPage;
 
-        // 새로운 패널 생성
-        PausePage pausePanel = new PausePage(layout, panel, mainPage);
+        // 새로운 패널 생성(마지막에서 2번째인자는 해당 게임의 타이머 전달,마지막인자는 전환할 패널이름)
+        PausePage pausePanel = new PausePage(layout, panel, mainPage,level1timer.getThisTimer(),"easyPanel");
 
         // 기존 패널에 새로운 패널 추가
         panel.add(pausePanel.getPausePanel(),"pausePanel");
@@ -292,7 +290,7 @@ public class CardMatchingEasy extends JPanel {
         this.loginscreen = loginscreen;
         
         // 새로운 패널 생성
-        FinishPage finishPanel = new FinishPage(layout, panel, mainPage,finalscore);
+        FinishPage finishPanel = new FinishPage(layout, panel, mainPage,loginscreen,finalscore);
 
         // 기존 패널에 새로운 패널 추가
         panel.add(finishPanel.getFinishPanel(), "finishPanel");

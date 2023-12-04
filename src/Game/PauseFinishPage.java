@@ -11,7 +11,6 @@ import java.io.*;
  * 일시정지화면과 종료화면을 Panel로 만드는 클래스
  */
 class PauseFinishPage extends JPanel {
-//    private JPanel pauseFinishPanel;
     /**Panel에서 만들어진 버튼 중 위에 해당하는 객체*/
     private PauseFinishButton topButton;
     /**Panel에서 만들어진 홈버튼 객체*/
@@ -32,28 +31,10 @@ class PauseFinishPage extends JPanel {
         cardLayout = layout;
         cardPanel = panel;
 
-        //타이틀 아이콘 변경
-//        try {
-//            // 이미지 파일을 읽어와서 아이콘 이미지로 설정
-//            Image iconImage = ImageIO.read(MainPage.class.getResource("../image/logo.jpg"));
-//            setIconImage(iconImage);
-//        } catch (Exception e) {
-//            // 예외 처리
-//            e.printStackTrace();
-//        }
-//
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-//        Container contentPane = getContentPane();
-//        contentPane.setLayout(new BorderLayout()); // GridBagLayout을 사용
-//        setLayout(cardLayout);
-
         panelF = new JPanel();
 
         panelF.setLayout(new GridBagLayout());
-//        pauseFinishPanel = new JPanel();
         panelF.setBackground(Utility.pointcolor);
-//        add(pauseFinishPanel, BorderLayout.CENTER);
         GridBagConstraints gbc = new GridBagConstraints();
 
         //윗 버튼을 인자로 준 경로의 이미지를 이용하여 생성
@@ -81,31 +62,14 @@ class PauseFinishPage extends JPanel {
     public JPanel getPausePanel(){
         return this.panelF;
     }
+    public JButton gettopbutton(){return this.topButton;}
 
     /**
      * homebutton에 적용되는 이벤트 메소드
      * 이벤트가 발생할 시 새로운 프레임이 생성된다.
      */
     private void openNewFrame() {
-        //현재 객체의 부모요소 찾기
-//        JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-//        currentFrame.setVisible(false);
-        // 새로운 프레임 생성
-//        MainPage homeFrame = new MainPage ("엎어라 뒤집어라_Main Page");
         cardLayout.show(cardPanel, "mainPanel");
-
-        // 현재 프레임 닫기
-//        WindowEvent windowClosing = new WindowEvent((Window) SwingUtilities.getWindowAncestor(this), WindowEvent.WINDOW_CLOSING);
-//        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(windowClosing);
-
-        // 현재 프레임을 닫지 않고 숨기기만 하기 때문에 새로운 프레임을 닫을 때의 동작을 정의해줍니다.
-//        homeFrame.addWindowListener(new WindowAdapter() {
-//            @Override
-//            public void windowClosing(WindowEvent e) {
-//                // 새로운 프레임이 닫힐 때 현재 프레임을 다시 보이게 합니다.
-//                PauseFinishPage.this.setVisible(true);
-//            }
-//        });
     }
 }
 
@@ -121,11 +85,18 @@ class PausePage {
     public JPanel cardPanel;
     public MainPage mainPage;
 
-    public PausePage(CardLayout layout, JPanel panel, MainPage mainPage) {
+    public PausePage(CardLayout layout, JPanel panel, MainPage mainPage,Timer leveltimer,String panelname) {
         cardLayout = layout;
         cardPanel = panel;
 
         PauseFinishPage pause = new PauseFinishPage("엎어라 뒤집어라_Pause Page","/image/play.png", layout, panel, mainPage);
+
+        // topButton_일시정지 화면일 때
+        pause.gettopbutton().addActionListener(e -> {
+            leveltimer.restart();
+            cardLayout.show(cardPanel, panelname);
+        });
+
         pausePanel = pause.getPausePanel();
         pausePanel.setBackground(Utility.pausefinishpagecolor);
     }
@@ -150,7 +121,7 @@ class FinishPage{
     public JPanel cardPanel;
     public MainPage mainPage;
 
-    public FinishPage(CardLayout layout, JPanel panel, MainPage mainPage,int finalscore) {
+    public FinishPage(CardLayout layout, JPanel panel, MainPage mainPage,LoginScreen loginscreen, int finalscore) {
         cardLayout = layout;
         cardPanel = panel;
 
@@ -158,26 +129,7 @@ class FinishPage{
         finishPanel = finish.getPausePanel();
         finishPanel.setBackground(Utility.pausefinishpagecolor);
 
-//        File infofile = new File("user_data.txt");
-//        String scoreContent = "";
         String scoreContent = String.valueOf(finalscore);
-
-//        try (BufferedReader br = new BufferedReader(new FileReader(infofile))) {
-//            String line;
-//            int currentLine = 1;
-//
-//            while ((line = br.readLine()) != null) {
-//                if (currentLine == 3) {
-//                    // 특정 줄의 내용을 출력하거나 필요한 작업 수행
-//                    scoreContent = line;
-//                    System.out.println(line);
-//                    break; // 찾았으면 반복문 종료
-//                }
-//                currentLine++;
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
         // 패널에 내용 추가
         GridBagConstraints gbc = new GridBagConstraints();
@@ -191,6 +143,24 @@ class FinishPage{
 
         finishPanel.add(finishscore, gbc);
 
+        finish.gettopbutton().addActionListener(e -> {
+            if(MainPage.level1.isSelected()){
+                String[] userData = mainPage.loginscreen.getUser();
+                CardMatchingEasy easy = new CardMatchingEasy(cardLayout, cardPanel, mainPage,loginscreen);
+                cardPanel.add(easy, "easyPanel");
+                cardLayout.show(cardPanel, "easyPanel");
+            }else if (MainPage.level2.isSelected()) {
+                String[] userData = mainPage.loginscreen.getUser();
+                CardMatchingMedium medium = new CardMatchingMedium(cardLayout, cardPanel, mainPage, loginscreen);
+                cardPanel.add(medium, "mediumPanel");
+                cardLayout.show(cardPanel, "mediumPanel");
+            } else if (MainPage.level3.isSelected()) {
+                String[] userData = mainPage.loginscreen.getUser();
+                CardMatchingHard hard = new CardMatchingHard(cardLayout, cardPanel, mainPage, loginscreen);
+                cardPanel.add(hard, "hardPanel");
+                cardLayout.show(cardPanel, "hardPanel");
+            }
+        });
 
         cardPanel.add(finishPanel, "finishPanel");
 

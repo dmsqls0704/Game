@@ -6,7 +6,7 @@ import javax.swing.*;
 /**
  * 
  * 로그인, 회원가입 시 유저의 정보를 저장하고 확인하는 클래스이다.
- *
+ * @author dmsqls
  */
 public class DataManager{
 	private static final String fileName = "user_data.txt";
@@ -90,6 +90,12 @@ public class DataManager{
         }
         return null; 
     }
+	/**
+	 * 최고 점수를 파일에 저장하기 위한 메소드
+	 * @param nickname 현재 로그인한 유저의 닉네임
+	 * @param pw 현재 로그인한 유저의 비밀번호
+	 * @param newScore 게임을 끝낸 후 점수
+	 */
 	public void saveScore(String nickname, String pw, String newScore) {
 	    try (BufferedReader reader = new BufferedReader(new FileReader(fileName));
 	         BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"))) {
@@ -100,7 +106,7 @@ public class DataManager{
 	            String score = reader.readLine();
 
 	            if (nickname.equals(dataName)) {
-	                // 특정 사용자의 점수를 업데이트합니다
+	                //유저의 최고 점수 업데이트
 	                writer.write(dataName + "\n" + dataPW + "\n" + newScore + "\n");
 	            } else {
 	                writer.write(dataName + "\n" + dataPW + "\n" + score + "\n");
@@ -110,7 +116,7 @@ public class DataManager{
 	        e.printStackTrace();
 	    }
 
-	    // 임시 파일을 원래 파일 이름으로 변경합니다
+	    // 임시 파일을 원래 파일 이름으로 변경
 	    File originalFile = new File(fileName);
 	    File tempFile = new File("temp.txt");
 	      if (originalFile.delete() && tempFile.renameTo(originalFile)) {

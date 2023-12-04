@@ -26,6 +26,7 @@ import javax.swing.plaf.ColorUIResource;
 /** 
  * 
  * 회원가입 화면을 실행하는 클래스이다. 
+ * @author dmsqls
  * 
  */
 public class JoinScreen extends JPanel{
@@ -52,7 +53,7 @@ public class JoinScreen extends JPanel{
         
         JPanel panelJ = new JPanel();
         panelJ.setLayout(new GridBagLayout());
-        panelJ.setBackground(new Color(248,244,235));
+        panelJ.setBackground(Utility.backcolor);
         
         Font titleFont = Utility.yeongdeok_haeparang(50);
         Font font = Utility.yeongdeok_sea(40);
@@ -98,10 +99,7 @@ public class JoinScreen extends JPanel{
         		cardLayout.show(cardPanel,"startPanel");
         	}
         });
-        backButton.setBackground(new Color(125, 159, 104));
-        backButton.setBorder(BorderFactory.createLineBorder(new Color(80, 102, 67)));
-    	UIManager.put("Button.focus", new ColorUIResource(new Color(125, 159, 104)));
-    	
+        
     	ImageIcon homeImage = new ImageIcon(getClass().getResource("/image/yongyonghome.png"));
         Image originalhomeImage = homeImage.getImage();
         Image scaledhomeImage = originalhomeImage.getScaledInstance(100,100, Image.SCALE_SMOOTH);
@@ -122,17 +120,14 @@ public class JoinScreen extends JPanel{
         checkButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
                 if (nickname.getText().trim().isEmpty() || password.getText().trim().isEmpty()) {
-//                    JOptionPane.showMessageDialog(JoinScreen.this, "닉네임과 비밀번호를 입력하세요.", "입력 오류", JOptionPane.ERROR_MESSAGE);
                 	ErrorMessage.showErrorDialog("입력 오류", "닉네임과 비밀번호를 입력하세용.");
                 } 
                 else {
                 	if(dataManager.dataCheck(nickname.getText(),password.getText())) {
-//                		JOptionPane.showMessageDialog(JoinScreen.this, "이미 가입되었습니다.", "입력 오류", JOptionPane.ERROR_MESSAGE);
                 		ErrorMessage.showErrorDialog("입력 오류", "이미 가입되었어용.");
                 		cardLayout.show(cardPanel, "startPanel");
                 	}
                 	else if(!dataManager.pwCheck(password.getText())){
-//                		JOptionPane.showMessageDialog(JoinScreen.this, "비밀번호는 4자리로 입력하세요.", "입력 오류", JOptionPane.ERROR_MESSAGE);
                 		ErrorMessage.showErrorDialog("입력 오류", "비밀번호는 4자리로 입력하세용.");
                 		password.setText("");
                 	}
@@ -144,10 +139,7 @@ public class JoinScreen extends JPanel{
                 }  
         	}	
         });
-        checkButton.setBackground(new Color(125, 159, 104));
-        checkButton.setBorder(BorderFactory.createLineBorder(new Color(80, 102, 67)));
-		UIManager.put("Button.focus", new ColorUIResource(new Color(125, 159, 104)));
-		
+        
 		gbc.anchor = GridBagConstraints.EAST;
 		gbc.gridx=1;
 		gbc.gridy=4;

@@ -23,11 +23,9 @@ class PauseFinishButton extends JButton {
      * @param imagepath 버튼 아이콘에 쓰일 이미지파일의 경로를 매개변수로 받음
      */
     public PauseFinishButton(String imagepath){
-//        decorate();
         setPreferredSize(new Dimension(buttonwidth,buttonheight)); // 크기 조절
         setRolloverEnabled(false);
         setFocusPainted(false);
-//        setBackground(utility.maincolor);
 
         // 이미지 파일을 읽어와서 ImageIcon으로 설정
         try {
@@ -36,9 +34,6 @@ class PauseFinishButton extends JButton {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-//        revalidate();
-//        repaint();
     }
 
     //버튼 커스텀
@@ -75,7 +70,5 @@ class PauseFinishButton extends JButton {
         }
 
         graphics.dispose();
-
-//        super.paintComponent(g);
     }
 }

@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
  * 
  * 정보 열람 화면을 실행하는 클래스이다. 
  * 사용자 닉네임, 최고 점수, 이미지를 보여준다.
+ * @author dmsqls
  * 
  */
 public class CardInfo extends JPanel{
@@ -32,11 +33,13 @@ public class CardInfo extends JPanel{
         
 		setLayout(cardLayout);
 		GridBagConstraints gbc = new GridBagConstraints();
-				
+		
+		//정보 열람 화면의 전체 panel
 		JPanel panelI = new JPanel();
         panelI.setLayout(new GridBagLayout());
         panelI.setBackground(Utility.backcolor);
         
+        //유저의 최고 점수를 보여줄 panel
         JPanel userRank = new JPanel();
         userRank.setLayout(new GridBagLayout());
         userRank.setBackground(Utility.basecolor);
@@ -78,6 +81,7 @@ public class CardInfo extends JPanel{
         gbc.insets = new Insets(10,340,10,10);
         userRank.add(userScore,gbc);
         
+        //뒤로가기 버튼 생성
         JButton backButton = new RoundedButton("");
         ImageIcon homeImage = new ImageIcon(getClass().getResource("/image/yongyonghome.png"));
         Image originalhomeImage = homeImage.getImage();
@@ -98,7 +102,11 @@ public class CardInfo extends JPanel{
         gbc.insets = new Insets(10,50,10,10);
         userRank.add(backButton,gbc);
        
+        //스크롤바 생성
         JScrollPane scroll = new JScrollPane();
+        JScrollBar scrollBar = scroll.getVerticalScrollBar();
+        scrollBar.setUnitIncrement(16); // 단위 스크롤링 속도 설정
+        
         JPanel imagePanel = new JPanel();
         imagePanel.setLayout(new GridBagLayout());
         imagePanel.setBackground(Utility.backcolor);
@@ -153,16 +161,22 @@ public class CardInfo extends JPanel{
         //난이도 상 이미지
         addImageHard(imagePanel,imagePathHard, nameHard,clubHard, 12, gbc);
         
-        
         scroll.setViewportView(imagePanel);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scroll.getVerticalScrollBar().setBackground(new Color(248, 244, 235));
+        scroll.getVerticalScrollBar().setBackground(Utility.backcolor);
        
         panelI.add(scroll,gbc);
-//       add(scroll, "InfoPanel");
         add(panelI, "InfoPanel");
 	}
-	/*난이도 하 이미지 생성 */
+	/**
+	 * 난이도 하 이미지 생성 메소드
+	 * @param panel 이미지를 넣을 panel을 받아오기 위한 변수
+	 * @param imagePathEasy 이미지 파일을 받아오기 위한 변수
+	 * @param nameEasy 이미지 이름 지정을 위한 변수
+	 * @param startGridy 시작 gridy를 받아오기 위한 변수
+	 * @param gbc  이미지 위치 조정을 위한 변수
+	 */
+
 	 private void addImageEasy(JPanel panel, String[] imagePathEasy, String[] nameEasy, int startGridy, GridBagConstraints gbc) {
 		    for (int i = 0; i < imagePathEasy.length; i++) {
 		        String imagePath = imagePathEasy[i];
@@ -185,7 +199,15 @@ public class CardInfo extends JPanel{
 		}
 	 String[] imagePathEasy = { "/image/bongji.jpg", "/image/clockt.jpg", "/image/baekdo.jpg","/image/hongdo.jpg","/image/dido.jpg","/image/yongbongt.jpg","/image/yongji.jpg","/image/bongji.jpg"  };
 	 String[] nameEasy = { "봉지", "시계탑", "백도", "홍도", "디도" ,"용봉탑", "용지", "봉지"};
-	 /*난이도 중 이미지 생성 */
+	 /**
+	  * 난이도 중 이미지 생성 메소드
+	  * @param panel 이미지를 넣을 panel을 받아오기 위한 변수
+	  * @param imagePathMedium 이미지 파일을 받아오기 위한 변수
+	  * @param nameMedium 이미지 이름 지정을 위한 변수
+	  * @param address 주소 정보를 지정하기 위한 변수
+	  * @param startGridy 시작 gridy를 받아오기 위한 변수
+	  * @param gbc 이미지 위치 조정을 위한 변수
+	  */
 	 private void addImageMedium(JPanel panel, String[] imagePathMedium, String[] nameMedium ,String[] address, int startGridy, GridBagConstraints gbc) {
 		    for (int i = 0; i < imagePathMedium.length; i++) {
 		        String imagePath = imagePathMedium[i];
@@ -213,7 +235,16 @@ public class CardInfo extends JPanel{
 			 				 "골목", "로니로티", "미스터초밥왕", "예향정", "뼈대있는집" ,"그여자의밥상", "한우촌"};
 	 String[] addr = {"광주 북구 설죽로214번길 122", "광주 북구 설죽로214번길 129", "광주 북구 설죽로214번길 90", "광주 북구 우치로90번길 17 1층", "광주 북구 우치로 86 지하1층" ,"광주 북구 호동로 6-3 1층 ", "광주 북구 우치로100번길 17", "광주 북구 우치로 142",
 			     	  "광주 북구 용봉로 62-6 1층", "광주 북구 호동로15번길 13", "광주 북구 우치로100번길 10-6", "광주 북구 호동로 5", "광주 북구 호동로 28 1층" ,"광주 북구 설죽로214번길 123", "정광주 북구 용주로30번길 36"};
-	 /*난이도 상 이미지 생성 */
+	 
+	 /**
+	  * 난이도 상 이미지 생성 메소드
+	  * @param panel 이미지를 넣을 panel을 받아오기 위한 변수 
+	  * @param imagePathHard 이미지 파일을 받아오기 위한 변수 
+	  * @param nameHard 이미지 이름 지정을 위한 변수
+	  * @param clubHard 동아리 정보를 지정하기 위한 변수
+	  * @param startGridy 시작 gridy를 받아오기 위한 변수
+	  * @param gbc 이미지 위치 조정을 위한 변수
+	  */
 	 private void addImageHard(JPanel panel, String[] imagePathHard, String[] nameHard,String[] clubHard, int startGridy, GridBagConstraints gbc) {
 		    for (int i = 0; i < imagePathHard.length; i++) {
 		        String imagePath = imagePathHard[i];
@@ -244,6 +275,7 @@ public class CardInfo extends JPanel{
 						  "블랙베이스","청불","전대극회","마음쉬는곳","관혁악반","SFC","KUSA","We'z","YMCA","별따오기","어푸어푸","유스호스텔"};
 	String[] clubHard = {"(밴드)","(만화 창작)","(사진 예술)","(게임 문화)","(당구)","(댄스)","(축구)","(일본 문화)","(밴드)","(동물보호소 봉사)","(드론 축구)","(탁구)",
 						 "(야구)","(영상)","(연극)","(불교)","(오케스트라)","(기독교)","(유네스코 이념)","(마술)","(영화 감상)","(천체 관측)","(수영)","(여행)"};
+	
 	
 	 private int IMAGE_WIDTH =225;
 	 private int IMAGE_HEIGHT = 300;

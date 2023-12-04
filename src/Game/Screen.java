@@ -7,7 +7,11 @@ import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.event.*;
 
-/** 전체 게임 실행을 담당하는 클래스 */ 
+/**
+ *  전체 게임 실행을 담당하는 클래스
+ * @author dmsqls
+ *
+ */
 public class Screen
 {
 	public static void main(String[] args)
@@ -18,7 +22,11 @@ public class Screen
 	}
 }
 
-/** 게임 시작 화면을 실행하는 클래스이다. */
+/**
+ * 게임 시작 화면을 실행하는 클래스이다.
+ * @author dmsqls
+ *
+ */
 class GameScreen extends JFrame {
 	private CardLayout cardLayout;
 	private JPanel cardPanel;
@@ -129,7 +137,7 @@ class GameScreen extends JFrame {
 		loginButton.setBorder(BorderFactory.createLineBorder(new Color(80, 102, 67)));
 		UIManager.put("Button.focus", new ColorUIResource(new Color(125, 159, 104)));
 		
-	/** 회원가입 버튼을 생성 */
+		/** 회원가입 버튼을 생성 */
         JButton joinButton = new RoundedButton("회원가입");
         joinButton.setPreferredSize(new Dimension(buttonwidth, buttonheight));
         joinButton.setFont(font);
@@ -166,7 +174,6 @@ class GameScreen extends JFrame {
 		startPanel.add(loginButton, gbc);
         
         gbc.gridy=2;
-//        gbc.insets = new Insets(10,10,10,10);
         startPanel.add(joinButton, gbc);
 
         add(cardPanel);
@@ -177,11 +184,5 @@ class GameScreen extends JFrame {
 
         JoinScreen joinScreen = new JoinScreen(cardLayout, cardPanel);
         cardPanel.add(joinScreen, "joinPanel");
-//        cardLayout.show(cardPanel, "startPanel");
     }
-//    /**버튼의 가로 길이 저장한 변수*/
-//    private int buttonwidth;
-//    /**버튼의 세로 길이 저장한 변수*/
-//    private int buttonheight;
-   
 }

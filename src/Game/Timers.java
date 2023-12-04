@@ -15,10 +15,11 @@ public class Timers{
     private JProgressBar progressBar;
 
     protected MainPage mainPage;
+    protected LoginScreen loginscreen;
     private CardLayout cardLayout;
     private JPanel panel;
     private Score gameScore;
-//    private JLabel timerLabel;
+    private String gameovermessage;
 
     public Timers(int timelimit,Score gameScore) {
         this.gameScore = gameScore;
@@ -28,7 +29,6 @@ public class Timers{
         progressBar.setBackground(Utility.basecolor);  // 타이머바 배경 색
         progressBar.setForeground(Utility.pointcolor); // 진행 상태 색깔
         progressBar.setPreferredSize(new Dimension(BAR_WIDTH, BAR_HEIGHT));// 타이머 사이즈, FlowLayout()이라서 이렇게 조정해야됨
-        //progressBar.setBorder(new RoundBorder(15));
 
         progressBar.setBorderPainted(false);
 
@@ -43,12 +43,9 @@ public class Timers{
 
                 if (timerValue <= 0) {
                     timer.stop();
-                    addfinishPanel(cardLayout, panel, mainPage,gameScore.getScore());
-                    //JOptionPane.showMessageDialog(, "Game Over!");
+                    addfinishPanel(cardLayout, panel, mainPage,loginscreen,gameScore.getScore());
+                    
                 }
-//                } else {
-//                    timerLabel.setText("Time: " + timerValue + " seconds");
-//                }
             }
         });
 
@@ -60,18 +57,33 @@ public class Timers{
     public int getTimerValue(){
         timer.stop();
         return this.timerValue;}
-    public void addfinishPanel(CardLayout layout, JPanel panel, MainPage mainPage,int finalscore) {
+
+    public void stopTimer(){
+        timer.stop();
+    }
+    public Timer getThisTimer(){return this.timer;}
+    public void addfinishPanel(CardLayout layout, JPanel panel, MainPage mainPage,LoginScreen loginscreen,int finalscore) {
 
         cardLayout = layout;
         this.panel = panel;
         this.mainPage = mainPage;
-
+        
         // 새로운 패널 생성
-        FinishPage finishPanel = new FinishPage(layout, panel, mainPage,finalscore);
+        FinishPage finishPanel = new FinishPage(layout, panel, mainPage,loginscreen,finalscore);
 
         // 기존 패널에 새로운 패널 추가
         panel.add(finishPanel.getFinishPanel(), "finishPanel");
+        
+        gameovermessage = "Game Over!";
+        JLabel gameoverMessage = new JLabel(gameovermessage);
+        gameoverMessage.setFont(Utility.yeongdeok_haeparang(15));
+        gameoverMessage.setForeground(Utility.pointcolor);
 
+        //GameOver메시지 뜸
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridy = 3;
+        finishPanel.getFinishPanel().add(gameoverMessage,gbc);
+        
     // 카드를 새로운 패널로 전환
         cardLayout = (CardLayout) panel.getLayout();
         cardLayout.show(panel, "finishPanel");
@@ -79,17 +91,17 @@ public class Timers{
 }
 class Level1Timer extends Timers{
     public Level1Timer(Score gameScore){
-        super(30,gameScore);
+        super(40,gameScore);
     }
 }
-//class Level2Timer extends Timers{
-//    public Level2Timer(){
-//        super(90);
-//    }
-//}
-//class Level3Timer extends Timers{
-//    public Level3Timer(){
-//        super(180);
-//    }
-//}
+class Level2Timer extends Timers{
+    public Level2Timer(Score gameScore){
+        super(100, gameScore);
+    }
+}
+class Level3Timer extends Timers{
+    public Level3Timer(Score gameScore){
+        super(180, gameScore);
+    }
+}
 

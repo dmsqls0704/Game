@@ -38,7 +38,7 @@ public class Score {
      * @param timerScore 타이머 점수
      */
     public void TimerScore(int timerScore) {
-        this.timerScore = timerScore;
+        this.timerScore = timerScore*10;
     }
 
     /**

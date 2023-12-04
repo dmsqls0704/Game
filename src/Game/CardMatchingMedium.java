@@ -1,6 +1,9 @@
 package Game;
 
 import javax.swing.*;
+
+import Game.CardMatchingEasy.Card;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -14,119 +17,145 @@ import java.util.List;
 public class CardMatchingMedium extends JPanel {
     private JPanel cardPanel;
     private JPanel topPanel;  
+    private JButton button;
     private JLabel scoreLabel;  
     private List<Card> cards;
     private Card selectedCard = null;
     private int pairsFound = 0;
-    private Score cardScore;
-    private static final String initialImagePath = "cardlogo.jpg";
-    private static final int initialImageWidth = 129;
-    private static final int initialImageHeight = 172;
+    public Score score;
+    public Level2Timer level2timer;
+    private static final String initialImagePath = "src/image/cardlogo.jpg";
     private boolean isComparing = false;
     
+	protected MainPage mainPage;    
+    protected LoginScreen loginscreen;
     private CardLayout cardLayout;
 	private JPanel panel;
-	protected MainPage mainPage;
-	private String[] data;
+	private JPanel panelG;
+	private int finalscore;
 
     /**
      * CardMatchingEasy 클래스의 생성자입니다.
      * 게임 창을 초기화하고 사용자 인터페이스를 설정합니다.
      */
-    public CardMatchingMedium(CardLayout layout, JPanel panel, MainPage mainPage, String[] data) {
-//        setTitle("엎어라 뒤집어라");
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        setExtendedState(JFrame.MAXIMIZED_BOTH);
-//        setResizable(false);
+    public CardMatchingMedium(CardLayout layout, JPanel panel, MainPage mainPage, LoginScreen loginscreen) {
 
     	cardLayout = layout;
   	    this.panel = panel;
   	    this.mainPage = mainPage;
+  	    this.loginscreen = loginscreen;
   	    
-        cardScore = new Score();
-        topPanel = new JPanel(new FlowLayout());
-        topPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        scoreLabel = new JLabel("Score: 0");
-        topPanel.add(scoreLabel);
-        topPanel.setBackground(new Color(125, 159, 104));
-        add(topPanel, BorderLayout.NORTH);
+  	    setVisible(true);
+  	    setLayout(cardLayout);
+  	    
+        panelG = new JPanel();
+        panelG.setLayout(new GridBagLayout());
 
+  	    
+        score = new Score();
+        scoreLabel = new JLabel("Score:0");
+        scoreLabel.setFont(Utility.yeongdeok_sea(25));
+        
+        topPanel = new JPanel(new GridBagLayout());
+        topPanel.setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 40));
+        topPanel.setBackground(Utility.maincolor);
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        topPanel.add(scoreLabel, gbc);
+
+        // Add some horizontal space between scoreLabel and the button
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        topPanel.add(Box.createHorizontalStrut(10), gbc);
+
+        // Add button to the right side
+        gbc.gridx = 2;
+        gbc.weightx = 0.0;
+        ImageIcon pauseIcon = new ImageIcon("src/image/pause.png");
+        button = new JButton(pauseIcon);
+        button.setPreferredSize(new Dimension(20, 20));
+        button.setBackground(Utility.maincolor);
+        button.setBorderPainted(false);
+        button.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                button.setBackground(Utility.pointcolor); }
+            public void mouseExited(MouseEvent evt) {
+                button.setBackground(Utility.maincolor); } });
+        button.addActionListener(e -> addpausePanel(cardLayout, panel, mainPage));
+        topPanel.add(button, gbc);
+
+        //타이머 추가
+        level2timer = new Level2Timer(score);
+        JProgressBar timerVisible = level2timer.getProgressBar();
+        topPanel.add(timerVisible);
+        level2timer.addfinishPanel(cardLayout, panel, mainPage,loginscreen,score.getScore());
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 3;
+        gbc.anchor = GridBagConstraints.CENTER;
+        topPanel.add(timerVisible, gbc);
+
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        panelG.add(topPanel, gbc);
 
         cardPanel = new JPanel(new GridLayout(5, 6, 10, 10));
-        cardPanel.setBackground(new Color(237, 227, 206));
+        cardPanel.setBackground(Utility.backcolor);
         cards = new ArrayList<>();
 
+        Dimension parentFrame = Toolkit.getDefaultToolkit().getScreenSize();
+        int cardWidth = (int) (parentFrame.getWidth()* 0.07);
+        int cardHeight = (int) (parentFrame.getHeight()* 0.14);
         for (int i = 0; i < 15; i++) {
-            String imagePath = "medium/medium" + (i + 1) + ".png";
+            String imagePath = "src/medium/medium" + (i + 1) + ".jpg";
             ImageIcon icon = new ImageIcon(imagePath);
 
             for (int j = 0; j < 2; j++) {
-                Card card = new Card(icon);
+                Card card = new Card(icon,cardWidth, cardHeight);
                 card.addMouseListener(new CardClickListener());
                 cards.add(card);
             }
         }
 
         Collections.shuffle(cards);
+        initializeCardImages(cardWidth, cardHeight);
 
         for (Card card : cards) {
             cardPanel.add(card);
         }
 
-        initializeCardImages();
 
         JPanel centerPanel = new JPanel(new FlowLayout());
         centerPanel.add(cardPanel);
+        centerPanel.setBackground(Utility.backcolor);
 
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(topPanel, BorderLayout.NORTH);
-        mainPanel.add(centerPanel, BorderLayout.CENTER);
+        gbc.gridy=1;
+        panelG.add(centerPanel,gbc);
         
-        add(mainPanel);
-//        pack(); // 내용에 딱맞게 화면 조정
-//        setLocationRelativeTo(null); //화면 센터로 고정
-
-//        Level2Timer level2timer = new Level2Timer();
-//        JProgressBar timerVisible = level2timer.getProgressBar();
-//        topPanel.add(timerVisible);
-
         setVisible(true);
-        addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                resizeParentFrame();
-            }
-        });
+        add(panelG, "MediumPanel");
         
         
     }
 
-    private void resizeParentFrame() {
-        // 현재 패널이 속한 JFrame 찾기
-        Container container = this;
-        while (!(container instanceof JFrame) && container != null) {
-            container = container.getParent();
-        }
-
-        if (container instanceof JFrame) {
-            JFrame parentFrame = (JFrame) container;
-
-            // JFrame 크기 변경 코드
-            parentFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            parentFrame.setResizable(false);
-        }
-    }
 
     
     /**
      * 게임의 모든 카드에 대한 이미지를 초기화합니다.
      * 각 카드의 기본 이미지 아이콘을 초기 이미지의 크기에 맞게 조절합니다.
      */
-    private void initializeCardImages() {
+    private void initializeCardImages(int cardWidth, int cardHeight) {
         ImageIcon defaultIcon = new ImageIcon(initialImagePath);
-        Image img = defaultIcon.getImage().getScaledInstance(initialImageWidth, initialImageHeight, Image.SCALE_SMOOTH);
+        Image img = defaultIcon.getImage().getScaledInstance(cardWidth, cardHeight, Image.SCALE_SMOOTH);
         defaultIcon = new ImageIcon(img);
-        
+
         for (Card card : cards) {
+            card.setPreferredSize(new Dimension(cardWidth, cardHeight));
             card.setIcon(defaultIcon);
         }
     }
@@ -144,11 +173,12 @@ public class CardMatchingMedium extends JPanel {
          *
          * @param icon 카드와 연관된 이미지 아이콘입니다.
          */
-        public Card(ImageIcon icon) {
+        public Card(ImageIcon icon, int width, int height) {
             this.icon = icon;
-            setPreferredSize(new Dimension(initialImageWidth, initialImageHeight));
-            setIcon(icon);
+            setPreferredSize(new Dimension(width, height));
+            setIcon(scaleIcon(icon, getPreferredSize()));
         }
+
 
         /**
          * 카드의 앞면을 보여주기 위해 아이콘을 설정하고 카드를 앞면으로 표시합니다.
@@ -204,12 +234,14 @@ public class CardMatchingMedium extends JPanel {
                 Timer cardTimer = new Timer(40, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if (selectedCard.icon.equals(clickedCard.icon)) {
-                            cardScore.increaseScore(2);
-                            scoreLabel.setText("Score: " + cardScore.getScore());
+                    	if (selectedCard.icon.equals(clickedCard.icon)) {
+                            score.increaseScore(20);
+                            scoreLabel.setText("Score:" + score.getScore());
                             pairsFound++;
                             if (pairsFound == 15) {
-                                JOptionPane.showMessageDialog(null, "You win!");
+                                int timerScore = level2timer.getTimerValue();
+                                score.TimerScore(timerScore);
+                                addfinishPanel(cardLayout, panel, mainPage,loginscreen, score.totalScore());
                             }
                             selectedCard.setEnabled(false);
                             clickedCard.setEnabled(false);
@@ -246,4 +278,42 @@ public class CardMatchingMedium extends JPanel {
         }
     }
 
+    private void addpausePanel(CardLayout layout, JPanel panel, MainPage mainPage) {
+        level2timer.stopTimer();
+
+        cardLayout = layout;
+        this.panel = panel;
+        this.mainPage = mainPage;
+
+        // 새로운 패널 생성(마지막에서 2번째인자는 해당 게임의 타이머 전달,마지막인자는 전환할 패널이름)
+        PausePage pausePanel = new PausePage(layout, panel, mainPage,level2timer.getThisTimer(),"mediumPanel");
+
+        // 기존 패널에 새로운 패널 추가
+        panel.add(pausePanel.getPausePanel(),"pausePanel");
+
+        cardLayout = (CardLayout) panel.getLayout();
+        cardLayout.show(panel, "pausePanel");
+    }
+
+
+    private void addfinishPanel(CardLayout layout, JPanel panel, MainPage mainPage,LoginScreen loginscreen, int finalscore) {
+
+        cardLayout = layout;
+        this.panel = panel;
+        this.mainPage = mainPage;
+        this.loginscreen = loginscreen;
+        
+        // 새로운 패널 생성
+        FinishPage finishPanel = new FinishPage(layout, panel, mainPage,loginscreen,finalscore);
+
+        // 기존 패널에 새로운 패널 추가
+        panel.add(finishPanel.getFinishPanel(), "finishPanel");
+        int finalScore = finalscore;
+        loginscreen.saveScore(finalScore);
+        
+        // 카드를 새로운 패널로 전환
+        cardLayout = (CardLayout) panel.getLayout();
+        cardLayout.show(panel, "finishPanel");
+    }
 }
+

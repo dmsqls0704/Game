@@ -41,9 +41,11 @@ public class MainPage extends JPanel {
     static LabelSettingEvent label_setting;
     static MainPageLabels label_infoPage;
 	
-    /**MainPage클래스의 생성자
-     *
-     * @param titlename frame의 title에 해당하는 변수
+    /**
+     * MainPage클래스의 생성자
+     * @param layout
+     * @param panel
+     * @param loginscreen
      */
     public MainPage(CardLayout layout, JPanel panel,LoginScreen loginscreen) {
         cardLayout = layout;
@@ -119,37 +121,6 @@ public class MainPage extends JPanel {
 	    add(panelM, "mainPanel");
         setVisible(true);
     }
-
-    /**frame의 크기를 지정하고 아이콘을 변경하는 메소드
-     *프레임의 크기는 사용자의 모니터 크기의 비율에 맞춰 지정한다.
-     *
-     */
-//    private void initializeFrame() {
-//        Toolkit toolkit = Toolkit.getDefaultToolkit();
-//        Dimension screenSize = toolkit.getScreenSize();
-//        laptopWidth = (int) (screenSize.getWidth() * 0.7);
-//        laptopHeight = (int) (screenSize.getHeight() * 0.8);
-//
-//        // title 아이콘 변경
-//        setIconImage(loadIconImage());
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        setSize(laptopWidth, laptopHeight);
-//        Container contentPane = getContentPane();
-//        contentPane.setLayout(new GridBagLayout());
-//    }
-
-    /**frame 아이콘의 사진을 불러오는 메소드
-     *
-     * @return 프레임 아이콘에 대한 불러온 이미지
-     * @throws RuntimeException 이미지를 찾을 수 없거나 로딩 중 I/O오류가  발생한 경우 처리
-     */
-//    private Image loadIconImage() {
-//        try {
-//            return ImageIO.read(MainPage.class.getResource("../image/logo.jpg"));
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
     /**bgm을 제어할 수 있는 객체를 생성하는 메소드
      * 이 메소드는 bgm이라는 걸 알 수 있는 Label과 bgm을 제어할 수 있는 버튼을 생성한다.

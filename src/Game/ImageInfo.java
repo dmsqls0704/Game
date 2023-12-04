@@ -7,7 +7,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.*;
-
+/**
+ * 
+ * 정보 열람 화면에서 이미지 정보를 주기 위한 클래스이다.
+ * @author dmsqls
+ *
+ */
 public class ImageInfo extends JLabel{
 	private ImageIcon image;
 	private String name;
@@ -19,6 +24,11 @@ public class ImageInfo extends JLabel{
 	private JLabel clubLabel;
 	private JLabel addLabel;
 	
+	/**
+	 * 이미지에 대한 정보를 주기 위한 메소드 (이름)
+	 * @param image 어떤 이미지인지 이미지 정보를 받아오는 변수
+	 * @param name 이미지 이름을 받아오는 변수
+	 */
 	public ImageInfo(ImageIcon image, String name) {
 		super(image);
 		this.image = image;
@@ -27,6 +37,12 @@ public class ImageInfo extends JLabel{
 		createComponents();
 	}
 	
+	/**
+	 * 이미지에 대한 정보를 주기 위한 메소드 (이름, 주소 또는 동아리)
+	 * @param image 어떤 이미지인지 이미지 정보를 받아오는 변수
+	 * @param name 이미지 이름을 받아오는 변수
+	 * @param add 이미지 추가 정보를 받아오는 변수
+	 */
 	public ImageInfo(ImageIcon image, String name, String add) {
 		super(image);
 		this.image = image;
@@ -36,6 +52,9 @@ public class ImageInfo extends JLabel{
 		createComponentsAdd();	
 	}
 	
+	/**
+	 * 정보를 이미지 아래에 위치시키기 위한 메소드
+	 */
 	private void createComponents() {
         setLayout(new BorderLayout());
 
@@ -55,6 +74,9 @@ public class ImageInfo extends JLabel{
         textLabel.setVisible(true);
     }
 	
+	/**
+	 * 정보들을 이미지 아래에 위치시키기 위한 메소드
+	 */
 	private void createComponentsAdd() {
         setLayout(new BorderLayout());
 

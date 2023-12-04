@@ -28,6 +28,7 @@ import javax.swing.plaf.ColorUIResource;
 /** 
  * 
  * 로그인 화면을 실행하는 클래스이다. 
+ * @author dmsqls
  * 
  */
 public class LoginScreen extends JPanel{
@@ -102,10 +103,6 @@ public class LoginScreen extends JPanel{
 	    		dataManager.clear(nickname, password);
 	    	}
 	    });
-	    backButton.setBackground(new Color(125, 159, 104));
-	    backButton.setBorder(BorderFactory.createLineBorder(new Color(80, 102, 67)));
-		UIManager.put("Button.focus", new ColorUIResource(new Color(125, 159, 104)));
-		
 		ImageIcon homeImage = new ImageIcon(getClass().getResource("/image/yongyonghome.png"));
 	    Image originalhomeImage = homeImage.getImage();
 	    Image scaledhomeImage = originalhomeImage.getScaledInstance(100,100, Image.SCALE_SMOOTH);
@@ -139,16 +136,10 @@ public class LoginScreen extends JPanel{
             } 
     		else if(!dataManager.dataCheck(nickname.getText(), password.getText())){
     			ErrorMessage.showErrorDialog("입력 오류", "일치하는 정보가 없어용.");
-//    			cardLayout.show(cardPanel, "startPanel");
     			dataManager.clear(nickname, password);
 	    		}
 	    	}
 	    });
-	    
-	    checkButton.setBackground(new Color(125, 159, 104));
-		checkButton.setBorder(BorderFactory.createLineBorder(new Color(80, 102, 67)));
-		UIManager.put("Button.focus", new ColorUIResource(new Color(125, 159, 104)));
-		
 		gbc.anchor = GridBagConstraints.EAST;
 		gbc.gridx=1;
 		gbc.gridy=4;
@@ -163,6 +154,10 @@ public class LoginScreen extends JPanel{
 		return userData;
 	}
 	
+	/**
+	 * 최고 점수 저장을 위한 메소드
+	 * @param finalScore 게임 종료 후 기록한 최종 점수
+	 */
 	public void saveScore(int finalScore) {
 		 int userdata = Integer.parseInt(userData[2]);
 	    if(userdata <= finalScore) {

@@ -49,49 +49,7 @@ public class MainPageLabels extends JLabel {
         }
         setFont(MainPageLabelfont);
         defaultFontSize = MainPageLabelfont.getSize(); // 초기 폰트 크기 저장
-//        addEventListenersLebel();
     }
-
-//    private void addEventListenersLebel() {
-//        addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                Component[] components = MainPage.leftPanel.getComponents();
-//                boolean containstartlabel = false;
-//                boolean containinfolabel = false;
-//                boolean containsettinglabel = false;
-//
-//
-//                for (Component component : components) {
-//                    if (component == label_gameStart) {
-//                        containstartlabel = true;
-//                        break;
-//                    }
-//                    else if (component == label_infoPage){
-//                        containinfolabel = true;
-//                        break;
-//                    }
-//                    else if (component == label_setting){
-//                        containsettinglabel = true;
-//                        break;
-//                    }
-//                }
-//                if (!isSelected) { // 선택되지 않은 상태라면
-//                    isSelected = true;
-//                    setFont(MainPageLabelClickfont); // 크기 키우기
-//                    if(containstartlabel)
-//                        label_gameStart.setFont(MainPageLabelfont);
-//                    else if(containinfolabel)
-//                        label_infoPage.setFont(MainPageLabelfont);
-//                    else if(containsettinglabel)
-//                        label_setting.setFont(MainPageLabelfont);
-//                } else { // 이미 선택된 상태라면
-//                    isSelected = false;
-//                    setFont(MainPageLabelfont); // 원래 크기로 변경
-//                }
-//            }
-//        });
-//    }
 }
 
     /**
@@ -155,17 +113,17 @@ public class MainPageLabels extends JLabel {
                         leftPanel.repaint();
                     } else if (MainPage.level1.isSelected()) {
                         String[] userData = mainPage.loginscreen.getUser();
-                        CardMatchingEasy easy = new CardMatchingEasy(cardLayout, cardPanel, mainPage,loginscreen, userData);
+                        CardMatchingEasy easy = new CardMatchingEasy(cardLayout, cardPanel, mainPage, loginscreen);
                         cardPanel.add(easy, "easyPanel");
                         cardLayout.show(cardPanel, "easyPanel");
                     } else if (MainPage.level2.isSelected()) {
                         String[] userData = mainPage.loginscreen.getUser();
-                        CardMatchingMedium medium = new CardMatchingMedium(cardLayout, cardPanel, mainPage, userData);
+                        CardMatchingMedium medium = new CardMatchingMedium(cardLayout, cardPanel, mainPage, loginscreen);
                         cardPanel.add(medium, "mediumPanel");
                         cardLayout.show(cardPanel, "mediumPanel");
                     } else if (MainPage.level3.isSelected()) {
                         String[] userData = mainPage.loginscreen.getUser();
-                        CardMatchingHard hard = new CardMatchingHard(cardLayout, cardPanel, mainPage, userData);
+                        CardMatchingHard hard = new CardMatchingHard(cardLayout, cardPanel, mainPage,loginscreen);
                         cardPanel.add(hard, "hardPanel");
                         cardLayout.show(cardPanel, "hardPanel");
                     }

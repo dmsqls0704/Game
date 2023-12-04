@@ -5,8 +5,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-
+/**
+ * 
+ * 로그인, 회원가입 시 발생할 수 있는 입력오류 메시지 창을
+ * 상황에 따라 보여주기 위한 클래스이다.
+ * @author dmsqls
+ *
+ */
 public class ErrorMessage {
+	/**
+	 * 메시지 창을 보여주기 위한 메소드이다.
+	 * @param title 메시지 창의 제목
+	 * @param message 메시지 창의 오류 메시지
+	 */
 	public static void showErrorDialog(String title, String message) {
         JDialog dialog = new JDialog();
         dialog.setTitle(title);
@@ -35,6 +46,7 @@ public class ErrorMessage {
         gbc.gridx=1;
         error.add(messageLabel,gbc);
         
+        //닫기 버튼
         JButton closeButton = new RoundedButton("확인");
         
         closeButton.setFont(font);
