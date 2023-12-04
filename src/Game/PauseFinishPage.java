@@ -15,6 +15,7 @@ class PauseFinishPage extends JPanel {
     private PauseFinishButton topButton;
     /**Panel에서 만들어진 홈버튼 객체*/
     private PauseFinishButton homeButton;
+    /**해당 클래스의 새로운 패널 객체 생성*/
     private JPanel panelF;
 
     public CardLayout cardLayout;
@@ -26,7 +27,7 @@ class PauseFinishPage extends JPanel {
      * 객체의 크기와 배경색을 지정하고 버튼 객체를 생성을 한다.
      * @param buttonpath 버튼에 놓일 이미지 경로를 매개변수로 받음
      */
-    public PauseFinishPage(String titlename, String buttonpath, CardLayout layout, JPanel panel, MainPage mainPage) {
+    public PauseFinishPage(String buttonpath, CardLayout layout, JPanel panel, MainPage mainPage) {
 
         cardLayout = layout;
         cardPanel = panel;
@@ -53,8 +54,8 @@ class PauseFinishPage extends JPanel {
         add(panelF,"pausefinishPage");
         setVisible(true);
     }
+    
     //객체의 Panel반환
-
     /**
      * 객체 자신을 반환하는 메소드
      * @return 객체 자신을 반환
@@ -62,6 +63,11 @@ class PauseFinishPage extends JPanel {
     public JPanel getPausePanel(){
         return this.panelF;
     }
+
+    /**
+     * topButton 객체를 받는 메소드
+     * @return 자신 객체의 topButton객체 반환
+     */
     public JButton gettopbutton(){return this.topButton;}
 
     /**
@@ -89,7 +95,7 @@ class PausePage {
         cardLayout = layout;
         cardPanel = panel;
 
-        PauseFinishPage pause = new PauseFinishPage("엎어라 뒤집어라_Pause Page","/image/play.png", layout, panel, mainPage);
+        PauseFinishPage pause = new PauseFinishPage("/image/play.png", layout, panel, mainPage);
 
         // topButton_일시정지 화면일 때
         pause.gettopbutton().addActionListener(e -> {
@@ -98,7 +104,7 @@ class PausePage {
         });
 
         pausePanel = pause.getPausePanel();
-        pausePanel.setBackground(Utility.pausefinishpagecolor);
+        pausePanel.setBackground(Utility.backcolor);
     }
 
     /**
@@ -113,21 +119,26 @@ class PausePage {
 class FinishPage{
     /**종료화면 Panel 객체를 저장하는 변수*/
     private JPanel finishPanel;
-    /**FinishPage의 생성자로 Panel객체를 생성한다.
-     *PauseFinishPage클래스로 생성된 객체를 받아 변수에 저장
-     *또한 파일에 저장된 정보를 불러와 Panel에 추가하는 메소드
-     */
     public CardLayout cardLayout;
     public JPanel cardPanel;
     public MainPage mainPage;
 
+    /**
+     * FinishPage의 생성자로 Panel객체를 생성한다.
+     * PauseFinishPage클래스로 생성된 객체를 받아 변수에 저장
+     * 또한 파일에 저장된 정보를 불러와 Panel에 추가하는 메소드
+     * @param layout 종료화면의 레이아웃
+     * @param panel 초기 패널
+     * @param loginscreen 정보 저장을 위한 로그인화면 객체
+     * @param finalscore 게임의 최종 점수
+     */
     public FinishPage(CardLayout layout, JPanel panel, MainPage mainPage,LoginScreen loginscreen, int finalscore) {
         cardLayout = layout;
         cardPanel = panel;
 
-        PauseFinishPage finish = new PauseFinishPage("엎어라 뒤집어라_Finish Page", "/image/replay.png", cardLayout, cardPanel, mainPage);
+        PauseFinishPage finish = new PauseFinishPage("/image/replay.png", cardLayout, cardPanel, mainPage);
         finishPanel = finish.getPausePanel();
-        finishPanel.setBackground(Utility.pausefinishpagecolor);
+        finishPanel.setBackground(Utility.backcolor);
 
         String scoreContent = String.valueOf(finalscore);
 
@@ -136,13 +147,15 @@ class FinishPage{
         gbc.gridy = 0;
         Font scorefont = Utility.yeongdeok_haeparang(70);
 
+        //게임 점수
         JLabel finishscore = new JLabel(scoreContent);
         finishscore.setForeground(Utility.maincolor);
-        finishscore.setBackground(Utility.pausefinishpagecolor);
+        finishscore.setBackground(Utility.backcolor);
         finishscore.setFont(scorefont);
 
         finishPanel.add(finishscore, gbc);
 
+        //종료 화면의 topbutton눌렀을 때 이벤트(새게임 생성)
         finish.gettopbutton().addActionListener(e -> {
             if(MainPage.level1.isSelected()){
                 String[] userData = mainPage.loginscreen.getUser();
@@ -175,6 +188,4 @@ class FinishPage{
     public JPanel getFinishPanel(){
         return this.finishPanel;
     }
-
-
 }

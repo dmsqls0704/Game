@@ -14,6 +14,10 @@ import java.awt.event.*;
  */
 public class Screen
 {
+	/**
+	 * 전체 게임 실행 main
+	 * @param args
+	 */
 	public static void main(String[] args)
 	{
 		GameScreen screen = new GameScreen();
@@ -28,9 +32,14 @@ public class Screen
  *
  */
 class GameScreen extends JFrame {
+	/** 화면 전환을 위한 레이아웃*/
 	private CardLayout cardLayout;
+	/** 화면 전환 패널*/
 	private JPanel cardPanel;
+
+	/** 게임 화면의 너비를 저장할 변수*/
 	private int laptopWidth;
+	/** 게임 화면의 길이를 저장할 변수*/ 
     private int laptopHeight;
 
     /**버튼의 가로 길이 저장한 변수*/

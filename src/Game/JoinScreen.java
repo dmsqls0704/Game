@@ -32,7 +32,9 @@ import javax.swing.plaf.ColorUIResource;
 public class JoinScreen extends JPanel{
 	private CardLayout cardLayout;
 	private JPanel cardPanel;
+	/** 닉네임을 입력 받을 필드*/
 	private JTextField nickname;
+	/** 비밀번호를 입력 받을 피드*/
 	private JTextField password;
 	private DataManager dataManager;
 	/**
@@ -94,6 +96,7 @@ public class JoinScreen extends JPanel{
         Font fontB = Utility.yeongdeok_sea(30);
        
         JButton backButton = new RoundedButton("");
+        backButton.setPreferredSize(new Dimension(80, 80));
         backButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		cardLayout.show(cardPanel,"startPanel");

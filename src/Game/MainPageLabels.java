@@ -19,18 +19,10 @@ import static Game.MainPage.*;
  *
  */
 public class MainPageLabels extends JLabel {
-    /**
-     * MainPage의 Label과 같이 쓰이는 이미지파일 경로가 저장된 변수
-     */
+    /**MainPage의 Label과 같이 쓰이는 이미지파일 경로가 저장된 변수*/
     private final String imagepath = "/image/button.png";
-    /**
-     * MainPage의 Label에 적용될 폰트가 저장된 변수
-     */
+    /**MainPage의 Label에 적용될 폰트가 저장된 변수*/
     private Font MainPageLabelfont = Utility.yeongdeok_haeparang(45);
-    private Font MainPageLabelClickfont = Utility.yeongdeok_haeparang(50);
-
-    private boolean isSelected = false; // 라벨이 선택되었는지 추적하는 변수
-    private int defaultFontSize; // 원래 폰트 크기를 저장하는 변수
     /**
      * MainPage의 Label객체를 생성하는 MainPageLabels의 생성자
      *
@@ -48,7 +40,6 @@ public class MainPageLabels extends JLabel {
             throw new RuntimeException(e);
         }
         setFont(MainPageLabelfont);
-        defaultFontSize = MainPageLabelfont.getSize(); // 초기 폰트 크기 저장
     }
 }
 
@@ -58,9 +49,7 @@ public class MainPageLabels extends JLabel {
      * MainPageLabels클래스를 상속받음
      */
     class LabelStartEvent extends MainPageLabels {
-        /**
-         * 난이도를 선택하지 않고 해당 이벤트가 추가된 Label을 클릭할 시 나타날 문구를 저장한 변수
-         */
+        /**난이도를 선택하지 않고 해당 이벤트가 추가된 Label을 클릭할 시 나타날 문구를 저장한 변수*/
         public static UnselectedMessage message;
 
         private CardLayout cardLayout;
@@ -183,4 +172,3 @@ public class MainPageLabels extends JLabel {
             });
         }
     }
-

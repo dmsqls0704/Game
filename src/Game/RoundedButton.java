@@ -5,8 +5,14 @@ import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * 버튼을 둥글게 만들기 위한 클래스
+ */
 public class RoundedButton extends JButton {
+    /**
+     * RoundedButton클래스 생성자
+     * @param text 버튼의 써질 글자
+     */
     public RoundedButton(String text) {
         super(text);
 
@@ -29,15 +35,19 @@ public class RoundedButton extends JButton {
         });
     }
 
+    /**
+     * 버튼을 둥글게 만들기 위한 메소드
+     * @param g 그래픽 객체
+     */
     // 둥근 버튼을 그리기 위한 paintComponent 메소드 오버라이드
     @Override
     protected void paintComponent(Graphics g) {
         if (getModel().isArmed()) {
             // 마우스 버튼을 누르고 있을 때의 처리
-            g.setColor(new Color(80, 102, 67));
+            g.setColor(Utility.pointcolor);
         } else {
             // 기본 색상
-            g.setColor(new Color(125, 159, 104));
+            g.setColor(Utility.maincolor);
         }
 
         int width = getWidth();

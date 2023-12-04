@@ -8,6 +8,7 @@ import java.io.IOException;
 /**
  * 일시정지 화면과 종료 화면에 만들어질 버튼 객체를 생성하는 클래스
  * 일시정지 화면과 종료 화면에 생성되는 버튼의 모양이 똑같아서 하나의 클래스로 정의함
+ * @author hojeong
  */
 class PauseFinishButton extends JButton {
     /**버튼의 가로 길이 저장한 변수*/

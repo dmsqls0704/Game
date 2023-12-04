@@ -5,6 +5,7 @@ import java.awt.*;
 
 /**
  * 난이도를 선택하지 않고 게임시작 버튼을 클릭했을 때 Label객체를 생성하는 클래스
+ * @author hojeong
  */
 class UnselectedMessage extends JLabel {
     /**이 객체에 적용할 폰트를 저장한 변수*/

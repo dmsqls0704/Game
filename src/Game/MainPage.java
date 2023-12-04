@@ -12,7 +12,7 @@ import javax.imageio.*;
 /** mainpage를 만드는 클래스
  * main메소드를 포함하고 있는 클래스로 frame을 생성함
  *
- * @author hojeong kang
+ * @author hojeong
  */
 public class MainPage extends JPanel {
     /**mainpage에서 왼쪽 Panel객체*/
@@ -30,35 +30,33 @@ public class MainPage extends JPanel {
     static OnOffButton bgm_on;
     /**bgm을 멈출 수 있는 버튼*/
     static OnOffButton bgm_off;
-    private int laptopWidth;
-    private int laptopHeight;
-
     private CardLayout cardLayout;
-	private JPanel cardPanel;
-	protected LoginScreen loginscreen;
-
+   private JPanel cardPanel;
+   protected LoginScreen loginscreen;
+    /**게임 시작 Label*/
     static LabelStartEvent label_gameStart;
+    /**설정 Label*/
     static LabelSettingEvent label_setting;
+    /**정보 열람 Label*/
     static MainPageLabels label_infoPage;
-	
+   
     /**
      * MainPage클래스의 생성자
-     * @param layout
-     * @param panel
-     * @param loginscreen
+     * MainPage에 들어가는 컴포넌트들이 추가된다.
+     * @param layout 패널의 레이아웃을 카드 레이아웃으로 받음
      */
     public MainPage(CardLayout layout, JPanel panel,LoginScreen loginscreen) {
         cardLayout = layout;
-	    cardPanel = panel;
-	    this.loginscreen = loginscreen;
-    		
-		setLayout(cardLayout);
-		Utility.playMusic();
+       cardPanel = panel;
+       this.loginscreen = loginscreen;
+          
+      setLayout(cardLayout);
+      Utility.playMusic();
 
-		JPanel panelM = new JPanel();
-		panelM.setLayout(new GridBagLayout());
-		panelM.setBackground(Utility.backcolor);
-		
+      JPanel panelM = new JPanel();
+      panelM.setLayout(new GridBagLayout());
+      panelM.setBackground(Utility.backcolor);
+      
         // 메인페이지 왼쪽 panel
         leftPanel = new JPanel();
         leftPanel.setBackground(Utility.backcolor);
@@ -93,12 +91,12 @@ public class MainPage extends JPanel {
         leftPanel.add(label_infoPage, gbc);
         
         label_infoPage.addMouseListener(new MouseAdapter(){
-        	public void mouseClicked(MouseEvent e) {
-    		        String[] userData = loginscreen.getUser();
-    		        CardInfo cardInfo = new CardInfo(cardLayout, cardPanel, MainPage.this, userData);
-    				cardPanel.add(cardInfo, "infoPanel");
-    				cardLayout.show(cardPanel, "infoPanel");
-        	}
+           public void mouseClicked(MouseEvent e) {
+                  String[] userData = loginscreen.getUser();
+                  CardInfo cardInfo = new CardInfo(cardLayout, cardPanel, MainPage.this, userData);
+                cardPanel.add(cardInfo, "infoPanel");
+                cardLayout.show(cardPanel, "infoPanel");
+           }
         });
         
         //설정 label
@@ -118,14 +116,13 @@ public class MainPage extends JPanel {
         createRightPanel(panelM, gbc2);
         leftPanel.revalidate();
         leftPanel.repaint();
-	    add(panelM, "mainPanel");
+       add(panelM, "mainPanel");
         setVisible(true);
     }
 
     /**bgm을 제어할 수 있는 객체를 생성하는 메소드
      * 이 메소드는 bgm이라는 걸 알 수 있는 Label과 bgm을 제어할 수 있는 버튼을 생성한다.
      *폰트와 색은 utility 클래스의 객체를 사용한다.
-     *
      */
     private void addBgmControls() {
         bgm_label = new JLabel("bgm");
@@ -139,7 +136,7 @@ public class MainPage extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 버튼을 클릭했을 때 배경색을 변경합니다.
-            	Utility.startMusic();
+               Utility.startMusic();
                 bgm_on.setBackground(Utility.maincolor); // 색 변경
                 bgm_off.setBackground(Utility.basecolor);
             }
@@ -149,7 +146,7 @@ public class MainPage extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 버튼을 클릭했을 때 배경색을 변경합니다.
-            	Utility.stopMusic();
+               Utility.stopMusic();
                 bgm_off.setBackground(Utility.maincolor); // 색 변경
                 bgm_on.setBackground(Utility.basecolor);
             }
@@ -158,7 +155,7 @@ public class MainPage extends JPanel {
 
     /**mainpage의 오른쪽 Panel객체를 생성함
      * 만들어진 오른쪽 Panel객체는 addLogoImage메소드에 매개변수로 전달한다.
-     *
+     * @param panel MainPage의 패널을 받음
      */
     private void createRightPanel(JPanel panel, GridBagConstraints gbc) {
         JPanel rightPanel = new JPanel();

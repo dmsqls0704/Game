@@ -18,8 +18,6 @@ public class Utility {
     static Color maincolor = new Color(125,159,104);
     /**포인트 색깔*/
     static Color pointcolor = new Color(80,102,67);
-    /**일시정지,종료화면에 쓰이는 색깔*/
-    static Color pausefinishpagecolor = new Color(255,255,255,220);
     
 	/** 배경음악을 실행시켜주는 메소드이다. */
 	public static void playMusic() {
