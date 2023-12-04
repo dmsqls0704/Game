@@ -91,7 +91,7 @@ class GameScreen extends JFrame {
         title1.setHorizontalAlignment(SwingConstants.CENTER);
         title2.setHorizontalAlignment(SwingConstants.CENTER);
         /** 게임 제목 폰트 설정 */
-        Font titleFont = Utility.yeongdeok_haeparang(90);
+        Font titleFont = Utility.yeongdeok_haeparang(90f);
         title1.setFont(titleFont);
         title2.setFont(titleFont);
         
@@ -112,7 +112,7 @@ class GameScreen extends JFrame {
         gbc.insets = new Insets(150,100,10,10);
         startPanel.add(title2, gbc);
 
-        Font font = Utility.yeongdeok_sea(30);
+        Font font = Utility.yeongdeok_sea(30f);
         
         /** 로그인 버튼을 생성 */
         JButton loginButton = new RoundedButton("로그인");

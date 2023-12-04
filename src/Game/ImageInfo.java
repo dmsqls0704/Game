@@ -18,8 +18,8 @@ public class ImageInfo extends JLabel{
 	private String name;
 	private String add;
 	private String club;
-	private Font namefont = Utility.yeongdeok_sea(25);
-	private Font addfont = Utility.yeongdeok_sea(15);
+	private Font namefont = Utility.yeongdeok_sea(25f);
+	private Font addfont = Utility.yeongdeok_sea(15f);
 	private JLabel textLabel;
 	private JLabel clubLabel;
 	private JLabel addLabel;

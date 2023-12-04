@@ -8,7 +8,7 @@ import java.awt.*;
  */
 class OnOffButton extends JButton {
     /**bgm 제어 버튼에 쓰일 폰트 저장한 변수*/
-    private Font onOffFont = Utility.yeongdeok_sea(12);
+    private Font onOffFont = Utility.yeongdeok_sea(12f);
     /**bgm제어 버튼을 묶을 그룹 객체 생성*/
     private ButtonGroup bgmGroup = new ButtonGroup();
 

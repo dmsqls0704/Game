@@ -39,7 +39,6 @@ public class MainPage extends JPanel {
     static LabelSettingEvent label_setting;
     /**정보 열람 Label*/
     static MainPageLabels label_infoPage;
-   
     /**
      * MainPage클래스의 생성자
      * MainPage에 들어가는 컴포넌트들이 추가된다.
@@ -52,7 +51,7 @@ public class MainPage extends JPanel {
           
       setLayout(cardLayout);
       Utility.playMusic();
-
+      
       JPanel panelM = new JPanel();
       panelM.setLayout(new GridBagLayout());
       panelM.setBackground(Utility.backcolor);
@@ -126,7 +125,7 @@ public class MainPage extends JPanel {
      */
     private void addBgmControls() {
         bgm_label = new JLabel("bgm");
-        Font font_bgmLabel = Utility.yeongdeok_sea(19);
+        Font font_bgmLabel = Utility.yeongdeok_sea(19f);
         bgm_label.setFont(font_bgmLabel);
 
         bgm_on = new OnOffButton("On", Utility.maincolor);

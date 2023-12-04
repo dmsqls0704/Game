@@ -145,7 +145,7 @@ class FinishPage{
         // 패널에 내용 추가
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridy = 0;
-        Font scorefont = Utility.yeongdeok_haeparang(70);
+        Font scorefont = Utility.yeongdeok_haeparang(70f);
 
         //게임 점수
         JLabel finishscore = new JLabel(scoreContent);

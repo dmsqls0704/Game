@@ -54,7 +54,7 @@ public class CardInfo extends JPanel{
         
         gbc.gridwidth =1;
         gbc.fill = GridBagConstraints.NONE;
-        Font font = Utility.yeongdeok_sea(50);
+        Font font = Utility.yeongdeok_sea(50f);
         
         ImageIcon rankI = new ImageIcon(getClass().getResource("/image/trophy.png"));
         Image originalImage = rankI.getImage();
@@ -116,7 +116,7 @@ public class CardInfo extends JPanel{
 
         gbc.gridy=1;
         gbc.gridwidth=3;
-        Font fontLabel = Utility.yeongdeok_haeparang(25);
+        Font fontLabel = Utility.yeongdeok_haeparang(25f);
         
         JLabel easyLabel = new JLabel("난이도 하 : 전남대 건축물");
         easyLabel.setBackground(Utility.pointcolor);

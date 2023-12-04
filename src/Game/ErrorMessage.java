@@ -38,7 +38,7 @@ public class ErrorMessage {
 		JLabel imageLabel = new JLabel(imageIcon);
         error.add(imageLabel,gbc);
 
-        Font font = Utility.yeongdeok_sea(16);
+        Font font = Utility.yeongdeok_sea(16f);
 
         JLabel messageLabel = new JLabel(message);
         messageLabel.setFont(font);

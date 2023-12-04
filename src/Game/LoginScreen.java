@@ -58,8 +58,8 @@ public class LoginScreen extends JPanel{
 	    panelL.setLayout(new GridBagLayout());
 	    panelL.setBackground(Utility.backcolor);
 	    
-	    Font titleFont = Utility.yeongdeok_haeparang(50);
-	    Font font = Utility.yeongdeok_sea(40);
+	    Font titleFont = Utility.yeongdeok_haeparang(50f);
+	    Font font = Utility.yeongdeok_sea(40f);
 	    
 	    /** 로그인 화면임을 알려주는 제목을 생성한다. */ 
 	    JLabel titleLogin = new JLabel("로그인");
@@ -94,7 +94,7 @@ public class LoginScreen extends JPanel{
 	    gbc.insets = new Insets(10,10,10,100);
 	    panelL.add(password,gbc);
 
-	    Font fontB = Utility.yeongdeok_sea(30);
+	    Font fontB = Utility.yeongdeok_sea(30f);
 	    
 	    JButton backButton = new RoundedButton("");
 	    backButton.setPreferredSize(new Dimension(80, 80));

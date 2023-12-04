@@ -113,7 +113,7 @@ public class Timers{
         
         gameovermessage = "Game Over!";
         JLabel gameoverMessage = new JLabel(gameovermessage);
-        gameoverMessage.setFont(Utility.yeongdeok_haeparang(15));
+        gameoverMessage.setFont(Utility.yeongdeok_haeparang(15f));
         gameoverMessage.setForeground(Utility.pointcolor);
 
         //GameOver메시지 뜸

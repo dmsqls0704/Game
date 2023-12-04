@@ -33,7 +33,7 @@ public class CardMatchingEasy extends JPanel {
     /** 현재 카드를 비교 중인지 여부를 나타냅니다. */
     private boolean isComparing = false;
     /** 카드에 사용되는 초기 이미지의 경로입니다. */
-    private static final String initialImagePath = "src/image/cardlogo.jpg";
+    private static final String initialImagePath = "/image/cardlogo.jpg";
    
     protected LoginScreen loginscreen;
     protected MainPage mainPage;
@@ -65,7 +65,7 @@ public class CardMatchingEasy extends JPanel {
 
         score = new Score();
         scoreLabel = new JLabel("Score:0");
-        scoreLabel.setFont(Utility.yeongdeok_sea(25));
+        scoreLabel.setFont(Utility.yeongdeok_sea(25f));
         topPanel = new JPanel(new GridBagLayout());
         topPanel.setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 40));
         topPanel.setBackground(Utility.maincolor);
@@ -86,7 +86,7 @@ public class CardMatchingEasy extends JPanel {
         // 우측에 일시 정지 버튼 추가
         gbc.gridx = 2;
         gbc.weightx = 0.0;
-        ImageIcon pauseIcon = new ImageIcon("src/image/pause.png");
+        ImageIcon pauseIcon = new ImageIcon(getClass().getResource("/image/pause.png"));
         button = new JButton(pauseIcon);
         button.setPreferredSize(new Dimension(20, 20));
         button.setBackground(Utility.maincolor);
@@ -129,8 +129,8 @@ public class CardMatchingEasy extends JPanel {
         
         // 카드 섞기 및 초기화
         for (int i = 0; i < 8; i++) {
-            String imagePath = "src/easy/easy" + (i + 1) + ".jpg";
-            ImageIcon icon = new ImageIcon(imagePath);
+            String imagePath = "/easy/easy" + (i + 1) + ".jpg";
+            ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
 
             for (int j = 0; j < 2; j++) {
                 Card card = new Card(icon, cardWidth, cardHeight);
@@ -166,7 +166,7 @@ public class CardMatchingEasy extends JPanel {
      * @param cardHeight 카드의 높이
      */
     private void initializeCardImages(int cardWidth, int cardHeight) {
-        ImageIcon defaultIcon = new ImageIcon(initialImagePath);
+        ImageIcon defaultIcon = new ImageIcon(getClass().getResource(initialImagePath));
         Image img = defaultIcon.getImage().getScaledInstance(cardWidth, cardHeight, Image.SCALE_SMOOTH);
         defaultIcon = new ImageIcon(img);
 
@@ -264,10 +264,10 @@ public class CardMatchingEasy extends JPanel {
                             clickedCard.setEnabled(false);
                         } else {
                             selectedCard.isFaceUp = false;
-                            selectedCard.setIcon(scaleIcon(new ImageIcon(initialImagePath), selectedCard.getPreferredSize()));
+                            selectedCard.setIcon(scaleIcon(new ImageIcon(getClass().getResource(initialImagePath)), selectedCard.getPreferredSize()));
 
                             clickedCard.isFaceUp = false;
-                            clickedCard.setIcon(scaleIcon(new ImageIcon(initialImagePath), clickedCard.getPreferredSize()));
+                            clickedCard.setIcon(scaleIcon(new ImageIcon(getClass().getResource(initialImagePath)), clickedCard.getPreferredSize()));
                         }
                         selectedCard = null;
                         isComparing = false;

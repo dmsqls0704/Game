@@ -22,7 +22,7 @@ public class MainPageLabels extends JLabel {
     /**MainPage의 Label과 같이 쓰이는 이미지파일 경로가 저장된 변수*/
     private final String imagepath = "/image/button.png";
     /**MainPage의 Label에 적용될 폰트가 저장된 변수*/
-    private Font MainPageLabelfont = Utility.yeongdeok_haeparang(45);
+    private Font MainPageLabelfont = Utility.yeongdeok_haeparang(45f);
     /**
      * MainPage의 Label객체를 생성하는 MainPageLabels의 생성자
      *

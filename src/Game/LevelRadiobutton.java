@@ -12,9 +12,9 @@ import java.awt.event.*;
  */
 class LevelRadiobutton extends JRadioButton {
     /**레벨 선택 버튼에 적용될 기본폰트*/
-    private Font radioButtonFont = Utility.yeongdeok_sea(18);
+    private Font radioButtonFont = Utility.yeongdeok_sea(18f);
     /**레벨을 선택하거나 마우스르 올렸을 때 적용되는 폰트*/
-    private Font radioButtonScalFont = Utility.yeongdeok_sea(22);
+    private Font radioButtonScalFont = Utility.yeongdeok_sea(22f);
     //난이도 버튼 그룹 생성
     /**레벨 선택 버튼들의 그룹객체*/
     static ButtonGroup levelGroup = new ButtonGroup();

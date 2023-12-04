@@ -9,7 +9,7 @@ import java.awt.*;
  */
 class UnselectedMessage extends JLabel {
     /**이 객체에 적용할 폰트를 저장한 변수*/
-    private Font unselectedMessageFont = Utility.yeongdeok_sea(18);
+    private Font unselectedMessageFont = Utility.yeongdeok_sea(18f);
 
     /**
      * UnselectedMessage클래스의 생성자

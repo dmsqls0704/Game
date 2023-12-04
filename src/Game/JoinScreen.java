@@ -57,8 +57,8 @@ public class JoinScreen extends JPanel{
         panelJ.setLayout(new GridBagLayout());
         panelJ.setBackground(Utility.backcolor);
         
-        Font titleFont = Utility.yeongdeok_haeparang(50);
-        Font font = Utility.yeongdeok_sea(40);
+        Font titleFont = Utility.yeongdeok_haeparang(50f);
+        Font font = Utility.yeongdeok_sea(40f);
         
         /** 회원가입 화면임을 알려주는 제목을 생성한다. */
         JLabel titleJoin = new JLabel("회원가입");
@@ -93,7 +93,7 @@ public class JoinScreen extends JPanel{
         gbc.insets = new Insets(10,10,10,100);
         panelJ.add(password,gbc);
        
-        Font fontB = Utility.yeongdeok_sea(30);
+        Font fontB = Utility.yeongdeok_sea(30f);
        
         JButton backButton = new RoundedButton("");
         backButton.setPreferredSize(new Dimension(80, 80));
